@@ -16,5 +16,11 @@ module MehPlayer
         end
       end
     end
+
+    def self.audio_file?(filename)
+      accepted_extensions = %w(ogg mp3 flac aac ac3)
+      return false unless File.file?(filename) 
+      accepted_formats.include? File.extname(filename)
+    end
   end
 end
