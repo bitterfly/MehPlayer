@@ -1,5 +1,5 @@
-require "taglib"
-require "rubygame"
+require 'taglib'
+require 'rubygame'
 
 module MehPlayer
   class Song
