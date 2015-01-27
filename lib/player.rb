@@ -1,15 +1,18 @@
 require 'rubygame'
+require 'playlist'
 
 module MehPlayer
   class Player
-    attr_reader :playlist, :action, :current_song
-    def initialize(container)
-      container = container.songs if container.is_a? Library
-      @playlist = container
-      @timer = Thread.new do
+    attr_reader :playlist, :action, :current_song, :seek
+    def initialize(playlist = Playlist.new, &block)
+
+      @playlist = playlist.songs
+      @timer = Thread.new(block) do |block|
         loop do
           while action and action.playing?
             sleep(1)
+            @seek += 1 unless paused?
+            block.call if block
           end
           if playing?
             @current_song += 1
@@ -24,12 +27,14 @@ module MehPlayer
       @timer.join
     end
 
-    def seek=(ratio)
-      action.jump_to(ratio * playlist[current_song].length)
+    def seek=(progress)
+      action.jump_to(progress)
+      @seek = progress
     end
 
     def stop
       @playing = false
+      @seek = 0
       action.stop if action
     end
 
@@ -37,11 +42,22 @@ module MehPlayer
       @playing
     end
 
+    def paused?
+      @action.paused?
+    end
+
     def playlist=(playlist)
       stop
       @playlist = playlist
     end
 
+    def pause
+      @action.pause
+    end
+
+    def unpause
+      @action.unpause
+    end
 
     def play(index)
       @current_song = index
@@ -54,6 +70,7 @@ module MehPlayer
     def start
       unless current_song >= playlist.size
         @action = Rubygame::Music.load(playlist[current_song].filename)
+        @seek = 0
         action.play
       end
     end

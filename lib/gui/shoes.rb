@@ -15,21 +15,17 @@ module MehPlayer
     folder = button "Add folder"
     folder.click{
       folder_name = ask_open_folder
-      p "grrr"
       library = Library.new
-      p folder_name
-      library.scan_folder(folder_name)
-      player = Player.new(library)
+      @library.scan_folder(folder_name)
+      @player = Player.new(library)
     }
     play = button "Play"
     play.click{
-      alert("gs")
-      puts "gs"
-      player.play(0)
+      @player.play(0)
     }
     stop = button "Stop"
     stop.click{
-      player.stop
+      @player.stop
     }
 
   end
