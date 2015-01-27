@@ -4,6 +4,8 @@ require 'find'
 module MehPlayer
   class Library
     
+    attr_reader :songs
+
     def initialize
       @songs = []
     end

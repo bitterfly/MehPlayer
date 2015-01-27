@@ -3,14 +3,14 @@ require 'rubygame'
 module MehPlayer
   class Player
     attr_reader :playlist, :action, :current_song
-    def initialize(songs)
-      @playlist = songs
+    def initialize(container)
+      container = container.songs if container.is_a? Library
+      @playlist = container
       @timer = Thread.new do
         loop do
           while action and action.playing?
             sleep(1)
           end
-          puts "puts1"
           if playing?
             @current_song += 1
             start
@@ -41,6 +41,7 @@ module MehPlayer
       stop
       @playlist = playlist
     end
+
 
     def play(index)
       @current_song = index
