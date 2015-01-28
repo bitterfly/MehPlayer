@@ -3,7 +3,8 @@ require 'playlist'
 
 module MehPlayer
   class Player
-    attr_reader :playlist, :action, :current_song, :seek
+    attr_reader :playlist, :action, :seek
+    attr_accessor :current_song
     def initialize(playlist = Playlist.new, &block)
 
       @playlist = playlist.songs
