@@ -10,7 +10,7 @@ module MehPlayer
       @playlist = playlist.songs
       @timer = Thread.new(block) do |block|
         loop do
-          while action and action.playing?
+          while action and (action.playing? or action.paused?)
             sleep(1)
             @seek += 1 unless paused?
             block.call if block

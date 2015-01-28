@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Wed Jan 28 22:59:57 2015
+** Created: Thu Jan 29 00:47:04 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -31,6 +31,7 @@ class Ui_MainWindow
     attr_reader :play_button
     attr_reader :stop_button
     attr_reader :next
+    attr_reader :pushButton
     attr_reader :horizontalSpacer_2
     attr_reader :mute
     attr_reader :volume
@@ -185,6 +186,11 @@ class Ui_MainWindow
 
     @buttons.addWidget(@next)
 
+    @pushButton = Qt::PushButton.new(@horizontalFrame_3)
+    @pushButton.objectName = "pushButton"
+
+    @buttons.addWidget(@pushButton)
+
     @horizontalSpacer_2 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
 
     @buttons.addItem(@horizontalSpacer_2)
@@ -264,6 +270,7 @@ class Ui_MainWindow
     @play_button.text = ''
     @stop_button.text = ''
     @next.text = ''
+    @pushButton.text = Qt::Application.translate("MainWindow", "PushButton", nil, Qt::Application::UnicodeUTF8)
     @mute.text = ''
     end # retranslateUi
 
