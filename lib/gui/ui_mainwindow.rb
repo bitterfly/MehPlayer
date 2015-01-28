@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Thu Jan 29 00:47:04 2015
+** Created: Thu Jan 29 01:43:23 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -31,7 +31,6 @@ class Ui_MainWindow
     attr_reader :play_button
     attr_reader :stop_button
     attr_reader :next
-    attr_reader :pushButton
     attr_reader :horizontalSpacer_2
     attr_reader :mute
     attr_reader :volume
@@ -75,6 +74,7 @@ class Ui_MainWindow
 
     @dash2 = Qt::Label.new(@info)
     @dash2.objectName = "dash2"
+    @dash2.maximumSize = Qt::Size.new(20, 30)
     @dash2.styleSheet = "background: none"
 
     @song_info.addWidget(@dash2)
@@ -87,6 +87,7 @@ class Ui_MainWindow
 
     @dash1 = Qt::Label.new(@info)
     @dash1.objectName = "dash1"
+    @dash1.maximumSize = Qt::Size.new(20, 30)
     @dash1.styleSheet = "background: none"
 
     @song_info.addWidget(@dash1)
@@ -186,11 +187,6 @@ class Ui_MainWindow
 
     @buttons.addWidget(@next)
 
-    @pushButton = Qt::PushButton.new(@horizontalFrame_3)
-    @pushButton.objectName = "pushButton"
-
-    @buttons.addWidget(@pushButton)
-
     @horizontalSpacer_2 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
 
     @buttons.addItem(@horizontalSpacer_2)
@@ -260,9 +256,9 @@ class Ui_MainWindow
     def retranslateUi(mainWindow)
     mainWindow.windowTitle = Qt::Application.translate("MainWindow", "MainWindow", nil, Qt::Application::UnicodeUTF8)
     @title.text = ''
-    @dash2.text = Qt::Application.translate("MainWindow", " - ", nil, Qt::Application::UnicodeUTF8)
+    @dash2.text = Qt::Application.translate("MainWindow", "-", nil, Qt::Application::UnicodeUTF8)
     @artist.text = ''
-    @dash1.text = Qt::Application.translate("MainWindow", " - ", nil, Qt::Application::UnicodeUTF8)
+    @dash1.text = Qt::Application.translate("MainWindow", "-", nil, Qt::Application::UnicodeUTF8)
     @album.text = ''
     @open_file.text = ''
     @open_folder.text = ''
@@ -270,7 +266,6 @@ class Ui_MainWindow
     @play_button.text = ''
     @stop_button.text = ''
     @next.text = ''
-    @pushButton.text = Qt::Application.translate("MainWindow", "PushButton", nil, Qt::Application::UnicodeUTF8)
     @mute.text = ''
     end # retranslateUi
 

@@ -62,11 +62,17 @@
             </item>
             <item>
              <widget class="QLabel" name="dash2">
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">background: none</string>
               </property>
               <property name="text">
-               <string> - </string>
+               <string>-</string>
               </property>
              </widget>
             </item>
@@ -82,11 +88,17 @@
             </item>
             <item>
              <widget class="QLabel" name="dash1">
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">background: none</string>
               </property>
               <property name="text">
-               <string> - </string>
+               <string>-</string>
               </property>
              </widget>
             </item>

@@ -81,6 +81,14 @@ module MehPlayer
         @ui.play_button.icon = @pause_icon
       end
 
+      def bright_screen
+        @ui.horizontalFrame_2.styleSheet = "background: rgb(255, 250, 255)"
+      end
+
+      def dead_screen
+        @ui.horizontalFrame_2.styleSheet = "background:rgb(80, 120, 114)"
+      end
+
       def play
         if @ui.mute.checked?
           mute
@@ -95,6 +103,7 @@ module MehPlayer
           end
         else
           unless @player.playlist.empty?
+            bright_screen
             @player.play(0)
             @ui.info.show
             pause_mode
@@ -104,6 +113,7 @@ module MehPlayer
 
       def stop
         unless @player.playlist.empty?
+         dead_screen
          @player.stop
          @ui.info.hide
          play_mode
