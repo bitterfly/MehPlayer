@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Fri Jan 30 20:38:21 2015
+** Created: Fri Jan 30 21:57:55 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -145,11 +145,17 @@ class Ui_MainWindow
     @buttons.objectName = "buttons"
     @save_playlist = Qt::PushButton.new(@horizontalFrame_3)
     @save_playlist.objectName = "save_playlist"
+    @save_playlist.maximumSize = Qt::Size.new(30, 30)
+    @save_playlist.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+"background: rgb(165, 165, 167)"
 
     @buttons.addWidget(@save_playlist)
 
     @open_playlist = Qt::PushButton.new(@horizontalFrame_3)
     @open_playlist.objectName = "open_playlist"
+    @open_playlist.maximumSize = Qt::Size.new(30, 30)
+    @open_playlist.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+"background: rgb(165, 165, 167)"
 
     @buttons.addWidget(@open_playlist)
 
@@ -278,7 +284,9 @@ class Ui_MainWindow
 
     @show_list = Qt::PushButton.new(@horizontalFrame)
     @show_list.objectName = "show_list"
-    @show_list.maximumSize = Qt::Size.new(25, 25)
+    @show_list.maximumSize = Qt::Size.new(30, 30)
+    @show_list.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+"background: rgb(165, 165, 167)"
 
     @horizontalLayout.addWidget(@show_list)
 
@@ -307,8 +315,8 @@ class Ui_MainWindow
     @artist.text = ''
     @dash1.text = Qt::Application.translate("MainWindow", "-", nil, Qt::Application::UnicodeUTF8)
     @album.text = ''
-    @save_playlist.text = Qt::Application.translate("MainWindow", "save", nil, Qt::Application::UnicodeUTF8)
-    @open_playlist.text = Qt::Application.translate("MainWindow", "open", nil, Qt::Application::UnicodeUTF8)
+    @save_playlist.text = ''
+    @open_playlist.text = ''
     @open_file.text = ''
     @open_folder.text = ''
     @prev.text = ''

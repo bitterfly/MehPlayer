@@ -38,6 +38,9 @@ module MehPlayer
         @ui.open_folder.icon = @folder_icon
         @ui.next.icon = @next_icon
         @ui.prev.icon = @prev_icon
+        @ui.open_playlist.icon = @open_playlist_icon
+        @ui.save_playlist.icon = @save_playlist_icon
+        @ui.show_list.icon = @list_icon
         @ui.info.hide
 
         connect(@ui.show_list, SIGNAL('clicked()'), self, SLOT('show_list()'))
@@ -63,6 +66,10 @@ module MehPlayer
         @stop_icon = Qt::Icon.new("resources/stop.png")
         @next_icon = Qt::Icon.new("resources/next.png")
         @prev_icon = Qt::Icon.new("resources/prev.png")
+        @list_icon = Qt::Icon.new("resources/playlist.png")
+        @save_playlist_icon = Qt::Icon.new("resources/save_playlist.png")
+        @open_playlist_icon = Qt::Icon.new("resources/open_playlist.png")
+
       end
 
       def open_file

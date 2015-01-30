@@ -186,15 +186,35 @@
            <layout class="QHBoxLayout" name="buttons">
             <item>
              <widget class="QPushButton" name="save_playlist">
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+background: rgb(165, 165, 167)</string>
+              </property>
               <property name="text">
-               <string>save</string>
+               <string/>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="open_playlist">
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+background: rgb(165, 165, 167)</string>
+              </property>
               <property name="text">
-               <string>open</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -443,9 +463,13 @@ background: rgb(165, 165, 167)</string>
           <widget class="QPushButton" name="show_list">
            <property name="maximumSize">
             <size>
-             <width>25</width>
-             <height>25</height>
+             <width>30</width>
+             <height>30</height>
             </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+background: rgb(165, 165, 167)</string>
            </property>
            <property name="text">
             <string/>
