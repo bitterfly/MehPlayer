@@ -3,13 +3,15 @@ require 'gui/listwindow'
 require 'song'
 require 'playlist'
 require 'player'
+require 'yaml'
 
 module MehPlayer
   module Gui  
     class MainWindow < Qt::MainWindow
 
       slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()',
-            'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()'
+            'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()',
+            'save_playlist()', 'open_playlist()'
 
       def initialize(parent = nil)
         super(parent)
@@ -49,6 +51,8 @@ module MehPlayer
         connect(@ui.next, SIGNAL('clicked()'), self, SLOT('next()'))
         connect(@ui.prev, SIGNAL('clicked()'), self, SLOT('prev()'))
         connect(@ui.shuffle, SIGNAL('stateChanged(int)'), self, SLOT('shuffle()'))
+        connect(@ui.save_playlist, SIGNAL('clicked()'), self, SLOT('save_playlist()'))
+        connect(@ui.open_playlist, SIGNAL('clicked()'), self, SLOT('open_playlist()'))
       end
 
       def load_icons
@@ -189,6 +193,21 @@ module MehPlayer
         @list.show
       end
 
+      def save_playlist
+        if @player.playlist
+          fileName = Qt::FileDialog.getSaveFileName(self)
+          File.write(fileName, @player.playlist.to_yaml)
+        end
+      end
+
+      def open_playlist
+        fileName = Qt::FileDialog.getOpenFileName(self)
+          if !fileName.nil?
+            stop if @player.playing?
+            dead_screen
+            @player.playlist = YAML.load(File.read(fileName))
+          end
+      end
     end
   end
 end

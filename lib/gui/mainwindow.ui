@@ -185,6 +185,20 @@
            </property>
            <layout class="QHBoxLayout" name="buttons">
             <item>
+             <widget class="QPushButton" name="save_playlist">
+              <property name="text">
+               <string>save</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="open_playlist">
+              <property name="text">
+               <string>open</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="open_file">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -313,19 +327,6 @@ background: rgb(165, 165, 167)</string>
                <string/>
               </property>
              </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>

@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Fri Jan 30 19:22:49 2015
+** Created: Fri Jan 30 20:38:21 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -27,13 +27,14 @@ class Ui_MainWindow
     attr_reader :horizontalLayout
     attr_reader :horizontalFrame_3
     attr_reader :buttons
+    attr_reader :save_playlist
+    attr_reader :open_playlist
     attr_reader :open_file
     attr_reader :open_folder
     attr_reader :prev
     attr_reader :play_button
     attr_reader :stop_button
     attr_reader :next
-    attr_reader :horizontalSpacer_2
     attr_reader :shuffle
     attr_reader :mute
     attr_reader :volume
@@ -142,6 +143,16 @@ class Ui_MainWindow
     @horizontalFrame_3.frameShadow = Qt::Frame::Sunken
     @buttons = Qt::HBoxLayout.new(@horizontalFrame_3)
     @buttons.objectName = "buttons"
+    @save_playlist = Qt::PushButton.new(@horizontalFrame_3)
+    @save_playlist.objectName = "save_playlist"
+
+    @buttons.addWidget(@save_playlist)
+
+    @open_playlist = Qt::PushButton.new(@horizontalFrame_3)
+    @open_playlist.objectName = "open_playlist"
+
+    @buttons.addWidget(@open_playlist)
+
     @open_file = Qt::PushButton.new(@horizontalFrame_3)
     @open_file.objectName = "open_file"
     @sizePolicy.heightForWidth = @open_file.sizePolicy.hasHeightForWidth
@@ -200,10 +211,6 @@ class Ui_MainWindow
 "background: rgb(165, 165, 167)"
 
     @buttons.addWidget(@next)
-
-    @horizontalSpacer_2 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
-
-    @buttons.addItem(@horizontalSpacer_2)
 
 
     @horizontalLayout.addWidget(@horizontalFrame_3)
@@ -300,6 +307,8 @@ class Ui_MainWindow
     @artist.text = ''
     @dash1.text = Qt::Application.translate("MainWindow", "-", nil, Qt::Application::UnicodeUTF8)
     @album.text = ''
+    @save_playlist.text = Qt::Application.translate("MainWindow", "save", nil, Qt::Application::UnicodeUTF8)
+    @open_playlist.text = Qt::Application.translate("MainWindow", "open", nil, Qt::Application::UnicodeUTF8)
     @open_file.text = ''
     @open_folder.text = ''
     @prev.text = ''
