@@ -206,6 +206,7 @@ module MehPlayer
             stop if @player.playing?
             dead_screen
             @player.playlist = YAML.load(File.read(fileName))
+            @list.songs = @player.playlist
           end
       end
     end
