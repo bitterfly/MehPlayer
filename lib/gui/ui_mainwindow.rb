@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Thu Jan 29 17:06:05 2015
+** Created: Fri Jan 30 19:22:49 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -37,6 +37,7 @@ class Ui_MainWindow
     attr_reader :shuffle
     attr_reader :mute
     attr_reader :volume
+    attr_reader :show_list
 
     def setupUi(mainWindow)
     if mainWindow.objectName.nil?
@@ -268,6 +269,12 @@ class Ui_MainWindow
 
     @horizontalLayout.addWidget(@volume)
 
+    @show_list = Qt::PushButton.new(@horizontalFrame)
+    @show_list.objectName = "show_list"
+    @show_list.maximumSize = Qt::Size.new(25, 25)
+
+    @horizontalLayout.addWidget(@show_list)
+
 
     @vertical.addWidget(@horizontalFrame)
 
@@ -301,6 +308,7 @@ class Ui_MainWindow
     @next.text = ''
     @shuffle.text = ''
     @mute.text = ''
+    @show_list.text = ''
     end # retranslateUi
 
     def retranslate_ui(mainWindow)

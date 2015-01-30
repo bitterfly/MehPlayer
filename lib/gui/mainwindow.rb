@@ -1,4 +1,5 @@
 require './ui_mainwindow.rb'
+require 'gui/listwindow'
 require 'song'
 require 'playlist'
 require 'player'
@@ -7,7 +8,8 @@ module MehPlayer
   module Gui  
     class MainWindow < Qt::MainWindow
 
-      slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()', 'volume()', 'mute()', 'next()', 'prev()', 'shuffle()'
+      slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()',
+            'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()'
 
       def initialize(parent = nil)
         super(parent)
@@ -26,6 +28,7 @@ module MehPlayer
           @ui.album.text = @player.playlist[@player.current_song].album
           @ui.track.text = '(' + @player.playlist[@player.current_song].track.to_s + ')'
         end
+        @list = ListWindow.new(@player, self)
         load_icons
         @ui.play_button.icon = @play_icon
         @ui.stop_button.icon = @stop_icon
@@ -35,6 +38,7 @@ module MehPlayer
         @ui.prev.icon = @prev_icon
         @ui.info.hide
 
+        connect(@ui.show_list, SIGNAL('clicked()'), self, SLOT('show_list()'))
         connect(@ui.open_file, SIGNAL('clicked()'), self, SLOT('open_file()'))
         connect(@ui.open_folder, SIGNAL('clicked()'), self, SLOT('open_folder()'))
         connect(@ui.play_button, SIGNAL('clicked()'), self, SLOT('play()'))
@@ -63,6 +67,7 @@ module MehPlayer
             stop if @player.playing?
             @playlist = Playlist.new([Song.new(fileName)])
             @player.playlist = @playlist.songs
+            @list.songs = @player.playlist
             @ui.info.hide
             play_mode
           end
@@ -75,6 +80,7 @@ module MehPlayer
             @playlist = Playlist.new
             @playlist.scan_folder(folderName)
             @player.playlist = @playlist.songs
+            @list.songs = @player.playlist
             @ui.info.hide
             play_mode
           end
@@ -177,6 +183,10 @@ module MehPlayer
 
       def shuffle
         @player.shuffle = (not @player.shuffle)
+      end
+
+      def show_list
+        @list.show
       end
 
     end
