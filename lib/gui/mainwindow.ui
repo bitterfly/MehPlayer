@@ -51,6 +51,16 @@
            </property>
            <layout class="QHBoxLayout" name="song_info">
             <item>
+             <widget class="QLabel" name="track">
+              <property name="styleSheet">
+               <string notr="true">background: none</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="title">
               <property name="styleSheet">
                <string notr="true">background: none</string>
@@ -114,6 +124,19 @@
             </item>
            </layout>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -211,7 +234,7 @@ background: rgb(165, 165, 167)</string>
              <widget class="QPushButton" name="prev">
               <property name="maximumSize">
                <size>
-                <width>20</width>
+                <width>25</width>
                 <height>25</height>
                </size>
               </property>
@@ -278,7 +301,7 @@ background: rgb(165, 165, 167)</string>
              <widget class="QPushButton" name="next">
               <property name="maximumSize">
                <size>
-                <width>20</width>
+                <width>25</width>
                 <height>25</height>
                </size>
               </property>
@@ -305,6 +328,34 @@ background: rgb(165, 165, 167)</string>
              </spacer>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="shuffle">
+           <property name="maximumSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"> QCheckBox::indicator {
+     width: 18px;
+     height: 18px;
+ }
+
+  QCheckBox::indicator:checked
+  {
+    image: url(./resources/shuffle_off.png);
+  }
+  QCheckBox::indicator:unchecked
+  {
+    image: url(./resources/shuffle.png);;
+  }</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
           </widget>
          </item>
          <item>

@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Thu Jan 29 01:43:23 2015
+** Created: Thu Jan 29 17:06:05 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -15,11 +15,13 @@ class Ui_MainWindow
     attr_reader :horizontalLayout_2
     attr_reader :info
     attr_reader :song_info
+    attr_reader :track
     attr_reader :title
     attr_reader :dash2
     attr_reader :artist
     attr_reader :dash1
     attr_reader :album
+    attr_reader :horizontalSpacer
     attr_reader :slider
     attr_reader :horizontalFrame
     attr_reader :horizontalLayout
@@ -32,6 +34,7 @@ class Ui_MainWindow
     attr_reader :stop_button
     attr_reader :next
     attr_reader :horizontalSpacer_2
+    attr_reader :shuffle
     attr_reader :mute
     attr_reader :volume
 
@@ -66,6 +69,12 @@ class Ui_MainWindow
     @info.styleSheet = "background: none"
     @song_info = Qt::HBoxLayout.new(@info)
     @song_info.objectName = "song_info"
+    @track = Qt::Label.new(@info)
+    @track.objectName = "track"
+    @track.styleSheet = "background: none"
+
+    @song_info.addWidget(@track)
+
     @title = Qt::Label.new(@info)
     @title.objectName = "title"
     @title.styleSheet = "background: none"
@@ -100,6 +109,10 @@ class Ui_MainWindow
 
 
     @horizontalLayout_2.addWidget(@info)
+
+    @horizontalSpacer = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
+
+    @horizontalLayout_2.addItem(@horizontalSpacer)
 
 
     @vertical.addWidget(@horizontalFrame_2)
@@ -150,7 +163,7 @@ class Ui_MainWindow
 
     @prev = Qt::PushButton.new(@horizontalFrame_3)
     @prev.objectName = "prev"
-    @prev.maximumSize = Qt::Size.new(20, 25)
+    @prev.maximumSize = Qt::Size.new(25, 25)
     @prev.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "background: rgb(165, 165, 167)"
 
@@ -181,7 +194,7 @@ class Ui_MainWindow
 
     @next = Qt::PushButton.new(@horizontalFrame_3)
     @next.objectName = "next"
-    @next.maximumSize = Qt::Size.new(20, 25)
+    @next.maximumSize = Qt::Size.new(25, 25)
     @next.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "background: rgb(165, 165, 167)"
 
@@ -193,6 +206,25 @@ class Ui_MainWindow
 
 
     @horizontalLayout.addWidget(@horizontalFrame_3)
+
+    @shuffle = Qt::CheckBox.new(@horizontalFrame)
+    @shuffle.objectName = "shuffle"
+    @shuffle.maximumSize = Qt::Size.new(25, 25)
+    @shuffle.styleSheet = " QCheckBox::indicator {\n" \
+"     width: 18px;\n" \
+"     height: 18px;\n" \
+" }\n" \
+"\n" \
+"  QCheckBox::indicator:checked\n" \
+"  {\n" \
+"    image: url(./resources/shuffle_off.png);\n" \
+"  }\n" \
+"  QCheckBox::indicator:unchecked\n" \
+"  {\n" \
+"    image: url(./resources/shuffle.png);;\n" \
+"  }"
+
+    @horizontalLayout.addWidget(@shuffle)
 
     @mute = Qt::CheckBox.new(@horizontalFrame)
     @mute.objectName = "mute"
@@ -255,6 +287,7 @@ class Ui_MainWindow
 
     def retranslateUi(mainWindow)
     mainWindow.windowTitle = Qt::Application.translate("MainWindow", "MainWindow", nil, Qt::Application::UnicodeUTF8)
+    @track.text = ''
     @title.text = ''
     @dash2.text = Qt::Application.translate("MainWindow", "-", nil, Qt::Application::UnicodeUTF8)
     @artist.text = ''
@@ -266,6 +299,7 @@ class Ui_MainWindow
     @play_button.text = ''
     @stop_button.text = ''
     @next.text = ''
+    @shuffle.text = ''
     @mute.text = ''
     end # retranslateUi
 

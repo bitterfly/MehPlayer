@@ -7,18 +7,24 @@ module MehPlayer
   module Gui  
     class MainWindow < Qt::MainWindow
 
-      slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()', 'volume()', 'mute()', 'next()', 'prev()'
+      slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()', 'volume()', 'mute()', 'next()', 'prev()', 'shuffle()'
 
       def initialize(parent = nil)
         super(parent)
         @ui = Ui_MainWindow.new
         @ui.setupUi(self)
         @player = Player.new do
+          unless @ui.mute.checked?
+            @player.action.volume = @ui.volume.value.to_f/100
+          else
+            mute
+          end
           @ui.slider.maximum = @player.playlist[@player.current_song].length
           @ui.slider.value = @player.seek
           @ui.artist.text = @player.playlist[@player.current_song].artist
           @ui.title.text = @player.playlist[@player.current_song].title
           @ui.album.text = @player.playlist[@player.current_song].album
+          @ui.track.text = '(' + @player.playlist[@player.current_song].track.to_s + ')'
         end
         load_icons
         @ui.play_button.icon = @play_icon
@@ -38,6 +44,7 @@ module MehPlayer
         connect(@ui.mute, SIGNAL('stateChanged(int)'), self, SLOT('mute()'))
         connect(@ui.next, SIGNAL('clicked()'), self, SLOT('next()'))
         connect(@ui.prev, SIGNAL('clicked()'), self, SLOT('prev()'))
+        connect(@ui.shuffle, SIGNAL('stateChanged(int)'), self, SLOT('shuffle()'))
       end
 
       def load_icons
@@ -144,12 +151,10 @@ module MehPlayer
 
       def next
         unless @player.playlist.empty?
-          if @player.current_song + 1 < @player.playlist.size
-            @player.current_song += 1
+          @player.next_song
+          if @player.current_song <= @player.playlist.size
             @player.play(@player.current_song)
-            if @ui.mute.checked?
-              mute
-            end
+            mute if @ui.mute.checked?
           else
             stop
           end
@@ -168,6 +173,10 @@ module MehPlayer
             @player.play(0)
           end
         end
+      end
+
+      def shuffle
+        @player.shuffle = (not @player.shuffle)
       end
 
     end
