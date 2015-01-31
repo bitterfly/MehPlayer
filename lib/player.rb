@@ -48,6 +48,14 @@ module MehPlayer
       end
     end
 
+    def prev_song
+      unless shuffle
+        @current_song -= 1
+      else
+        @current_song = rand(@playlist.size)
+      end
+    end
+
     def playing?
       @playing
     end
@@ -57,7 +65,6 @@ module MehPlayer
     end
 
     def playlist=(playlist)
-      stop
       @playlist = playlist
     end
 
@@ -73,6 +80,18 @@ module MehPlayer
       @current_song = index
       start
       @playing = true  
+    end
+
+    def find_by_description(keywords)
+      keywords.map do |keyword|
+        @playlist.select { |song| song.description && (song.description.downcase.split.include? keyword.downcase) }
+      end.inject :&
+    end
+
+    def find_by_info(keywords)
+      keywords.map do |keyword|
+        @playlist.select { |song| song.title and song.artist and (song.title.downcase.split + song.artist.downcase.split).include? keyword.downcase }
+      end.inject :&
     end
 
     private

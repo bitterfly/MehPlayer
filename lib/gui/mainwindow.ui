@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>171</height>
+    <width>534</width>
+    <height>177</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -16,6 +16,9 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="cursor">
+   <cursorShape>OpenHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -23,7 +26,7 @@
    <property name="styleSheet">
     <string notr="true">background:rgb(88, 127, 122)</string>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
      <layout class="QVBoxLayout" name="vertical">
       <item>
@@ -45,98 +48,102 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QFrame" name="info">
-           <property name="styleSheet">
-            <string notr="true">background: none</string>
-           </property>
-           <layout class="QHBoxLayout" name="song_info">
-            <item>
-             <widget class="QLabel" name="track">
-              <property name="styleSheet">
-               <string notr="true">background: none</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="title">
-              <property name="styleSheet">
-               <string notr="true">background: none</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="dash2">
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background: none</string>
-              </property>
-              <property name="text">
-               <string>-</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="artist">
-              <property name="styleSheet">
-               <string notr="true">background: none</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="dash1">
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background: none</string>
-              </property>
-              <property name="text">
-               <string>-</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="album">
-              <property name="styleSheet">
-               <string notr="true">background: none</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QFrame" name="info">
+             <property name="styleSheet">
+              <string notr="true">background: none</string>
+             </property>
+             <layout class="QHBoxLayout" name="song_info">
+              <item>
+               <widget class="QLabel" name="track">
+                <property name="styleSheet">
+                 <string notr="true">background: none</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="title">
+                <property name="styleSheet">
+                 <string notr="true">background: none</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="dash2">
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background: none</string>
+                </property>
+                <property name="text">
+                 <string>-</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="artist">
+                <property name="styleSheet">
+                 <string notr="true">background: none</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="dash1">
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background: none</string>
+                </property>
+                <property name="text">
+                 <string>-</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="album">
+                <property name="styleSheet">
+                 <string notr="true">background: none</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -265,6 +272,19 @@ background: rgb(165, 165, 167)</string>
              </widget>
             </item>
             <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QPushButton" name="prev">
               <property name="maximumSize">
                <size>
@@ -348,6 +368,19 @@ background: rgb(165, 165, 167)</string>
               </property>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </widget>
          </item>
@@ -402,60 +435,19 @@ background: rgb(165, 165, 167)</string>
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="volume">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>130</width>
-             <height>0</height>
-            </size>
-           </property>
+          <widget class="QPushButton" name="set_description">
            <property name="maximumSize">
             <size>
-             <width>220</width>
-             <height>23</height>
+             <width>25</width>
+             <height>25</height>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+background: rgb(165, 165, 167)</string>
            </property>
-           <property name="minimum">
-            <number>0</number>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="singleStep">
-            <number>1</number>
-           </property>
-           <property name="pageStep">
-            <number>1</number>
-           </property>
-           <property name="sliderPosition">
-            <number>70</number>
-           </property>
-           <property name="tracking">
-            <bool>true</bool>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="invertedAppearance">
-            <bool>false</bool>
-           </property>
-           <property name="invertedControls">
-            <bool>false</bool>
-           </property>
-           <property name="tickPosition">
-            <enum>QSlider::TicksBelow</enum>
-           </property>
-           <property name="tickInterval">
-            <number>6</number>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -480,6 +472,71 @@ background: rgb(165, 165, 167)</string>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSlider" name="volume">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>130</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>23</width>
+        <height>220</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="sliderPosition">
+       <number>70</number>
+      </property>
+      <property name="tracking">
+       <bool>true</bool>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="invertedAppearance">
+       <bool>false</bool>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBelow</enum>
+      </property>
+      <property name="tickInterval">
+       <number>6</number>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

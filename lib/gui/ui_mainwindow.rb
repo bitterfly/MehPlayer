@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Fri Jan 30 21:57:55 2015
+** Created: Sat Jan 31 17:26:44 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -9,10 +9,11 @@
 
 class Ui_MainWindow
     attr_reader :widget
-    attr_reader :verticalLayout_3
+    attr_reader :horizontalLayout_6
     attr_reader :vertical
     attr_reader :horizontalFrame_2
     attr_reader :horizontalLayout_2
+    attr_reader :horizontalLayout_5
     attr_reader :info
     attr_reader :song_info
     attr_reader :track
@@ -20,8 +21,8 @@ class Ui_MainWindow
     attr_reader :dash2
     attr_reader :artist
     attr_reader :dash1
-    attr_reader :album
     attr_reader :horizontalSpacer
+    attr_reader :album
     attr_reader :slider
     attr_reader :horizontalFrame
     attr_reader :horizontalLayout
@@ -31,30 +32,35 @@ class Ui_MainWindow
     attr_reader :open_playlist
     attr_reader :open_file
     attr_reader :open_folder
+    attr_reader :horizontalSpacer_2
     attr_reader :prev
     attr_reader :play_button
     attr_reader :stop_button
     attr_reader :next
+    attr_reader :horizontalSpacer_3
     attr_reader :shuffle
     attr_reader :mute
-    attr_reader :volume
+    attr_reader :set_description
     attr_reader :show_list
+    attr_reader :line
+    attr_reader :volume
 
     def setupUi(mainWindow)
     if mainWindow.objectName.nil?
         mainWindow.objectName = "mainWindow"
     end
-    mainWindow.resize(514, 171)
+    mainWindow.resize(534, 177)
     @sizePolicy = Qt::SizePolicy.new(Qt::SizePolicy::Fixed, Qt::SizePolicy::Fixed)
     @sizePolicy.setHorizontalStretch(0)
     @sizePolicy.setVerticalStretch(0)
     @sizePolicy.heightForWidth = mainWindow.sizePolicy.hasHeightForWidth
     mainWindow.sizePolicy = @sizePolicy
+    mainWindow.cursor = Qt::Cursor.new(Qt::OpenHandCursor)
     @widget = Qt::Widget.new(mainWindow)
     @widget.objectName = "widget"
     @widget.styleSheet = "background:rgb(88, 127, 122)"
-    @verticalLayout_3 = Qt::VBoxLayout.new(@widget)
-    @verticalLayout_3.objectName = "verticalLayout_3"
+    @horizontalLayout_6 = Qt::HBoxLayout.new(@widget)
+    @horizontalLayout_6.objectName = "horizontalLayout_6"
     @vertical = Qt::VBoxLayout.new()
     @vertical.objectName = "vertical"
     @horizontalFrame_2 = Qt::Frame.new(@widget)
@@ -66,6 +72,8 @@ class Ui_MainWindow
     @horizontalFrame_2.midLineWidth = 1
     @horizontalLayout_2 = Qt::HBoxLayout.new(@horizontalFrame_2)
     @horizontalLayout_2.objectName = "horizontalLayout_2"
+    @horizontalLayout_5 = Qt::HBoxLayout.new()
+    @horizontalLayout_5.objectName = "horizontalLayout_5"
     @info = Qt::Frame.new(@horizontalFrame_2)
     @info.objectName = "info"
     @info.styleSheet = "background: none"
@@ -103,6 +111,10 @@ class Ui_MainWindow
 
     @song_info.addWidget(@dash1)
 
+    @horizontalSpacer = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
+
+    @song_info.addItem(@horizontalSpacer)
+
     @album = Qt::Label.new(@info)
     @album.objectName = "album"
     @album.styleSheet = "background: none"
@@ -110,11 +122,10 @@ class Ui_MainWindow
     @song_info.addWidget(@album)
 
 
-    @horizontalLayout_2.addWidget(@info)
+    @horizontalLayout_5.addWidget(@info)
 
-    @horizontalSpacer = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
 
-    @horizontalLayout_2.addItem(@horizontalSpacer)
+    @horizontalLayout_2.addLayout(@horizontalLayout_5)
 
 
     @vertical.addWidget(@horizontalFrame_2)
@@ -179,6 +190,10 @@ class Ui_MainWindow
 
     @buttons.addWidget(@open_folder)
 
+    @horizontalSpacer_2 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
+
+    @buttons.addItem(@horizontalSpacer_2)
+
     @prev = Qt::PushButton.new(@horizontalFrame_3)
     @prev.objectName = "prev"
     @prev.maximumSize = Qt::Size.new(25, 25)
@@ -217,6 +232,10 @@ class Ui_MainWindow
 "background: rgb(165, 165, 167)"
 
     @buttons.addWidget(@next)
+
+    @horizontalSpacer_3 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
+
+    @buttons.addItem(@horizontalSpacer_3)
 
 
     @horizontalLayout.addWidget(@horizontalFrame_3)
@@ -258,29 +277,13 @@ class Ui_MainWindow
 
     @horizontalLayout.addWidget(@mute)
 
-    @volume = Qt::Slider.new(@horizontalFrame)
-    @volume.objectName = "volume"
-    @sizePolicy1 = Qt::SizePolicy.new(Qt::SizePolicy::Preferred, Qt::SizePolicy::Fixed)
-    @sizePolicy1.setHorizontalStretch(0)
-    @sizePolicy1.setVerticalStretch(0)
-    @sizePolicy1.heightForWidth = @volume.sizePolicy.hasHeightForWidth
-    @volume.sizePolicy = @sizePolicy1
-    @volume.minimumSize = Qt::Size.new(130, 0)
-    @volume.maximumSize = Qt::Size.new(220, 23)
-    @volume.styleSheet = ""
-    @volume.minimum = 0
-    @volume.maximum = 100
-    @volume.singleStep = 1
-    @volume.pageStep = 1
-    @volume.sliderPosition = 70
-    @volume.tracking = true
-    @volume.orientation = Qt::Horizontal
-    @volume.invertedAppearance = false
-    @volume.invertedControls = false
-    @volume.tickPosition = Qt::Slider::TicksBelow
-    @volume.tickInterval = 6
+    @set_description = Qt::PushButton.new(@horizontalFrame)
+    @set_description.objectName = "set_description"
+    @set_description.maximumSize = Qt::Size.new(25, 25)
+    @set_description.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+"background: rgb(165, 165, 167)"
 
-    @horizontalLayout.addWidget(@volume)
+    @horizontalLayout.addWidget(@set_description)
 
     @show_list = Qt::PushButton.new(@horizontalFrame)
     @show_list.objectName = "show_list"
@@ -294,7 +297,38 @@ class Ui_MainWindow
     @vertical.addWidget(@horizontalFrame)
 
 
-    @verticalLayout_3.addLayout(@vertical)
+    @horizontalLayout_6.addLayout(@vertical)
+
+    @line = Qt::Frame.new(@widget)
+    @line.objectName = "line"
+    @line.setFrameShape(Qt::Frame::VLine)
+    @line.setFrameShadow(Qt::Frame::Sunken)
+
+    @horizontalLayout_6.addWidget(@line)
+
+    @volume = Qt::Slider.new(@widget)
+    @volume.objectName = "volume"
+    @sizePolicy1 = Qt::SizePolicy.new(Qt::SizePolicy::Preferred, Qt::SizePolicy::Fixed)
+    @sizePolicy1.setHorizontalStretch(0)
+    @sizePolicy1.setVerticalStretch(0)
+    @sizePolicy1.heightForWidth = @volume.sizePolicy.hasHeightForWidth
+    @volume.sizePolicy = @sizePolicy1
+    @volume.minimumSize = Qt::Size.new(0, 130)
+    @volume.maximumSize = Qt::Size.new(23, 220)
+    @volume.styleSheet = ""
+    @volume.minimum = 0
+    @volume.maximum = 100
+    @volume.singleStep = 1
+    @volume.pageStep = 1
+    @volume.sliderPosition = 70
+    @volume.tracking = true
+    @volume.orientation = Qt::Vertical
+    @volume.invertedAppearance = false
+    @volume.invertedControls = false
+    @volume.tickPosition = Qt::Slider::TicksBelow
+    @volume.tickInterval = 6
+
+    @horizontalLayout_6.addWidget(@volume)
 
     mainWindow.centralWidget = @widget
 
@@ -325,6 +359,7 @@ class Ui_MainWindow
     @next.text = ''
     @shuffle.text = ''
     @mute.text = ''
+    @set_description.text = ''
     @show_list.text = ''
     end # retranslateUi
 

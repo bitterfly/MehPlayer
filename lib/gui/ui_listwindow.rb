@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'listwindow.ui'
 **
-** Created: Fri Jan 30 20:38:17 2015
+** Created: Sat Jan 31 17:12:38 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -10,7 +10,15 @@
 class Ui_ListWindow
     attr_reader :centralwidget
     attr_reader :verticalLayout
+    attr_reader :horizontalLayout
+    attr_reader :enqueue_folder
+    attr_reader :enqueue_file
+    attr_reader :pushButton_2
+    attr_reader :horizontalSpacer
     attr_reader :song_list
+    attr_reader :verticalLayout_2
+    attr_reader :label
+    attr_reader :search
 
     def setupUi(listWindow)
     if listWindow.objectName.nil?
@@ -21,10 +29,49 @@ class Ui_ListWindow
     @centralwidget.objectName = "centralwidget"
     @verticalLayout = Qt::VBoxLayout.new(@centralwidget)
     @verticalLayout.objectName = "verticalLayout"
+    @horizontalLayout = Qt::HBoxLayout.new()
+    @horizontalLayout.objectName = "horizontalLayout"
+    @enqueue_folder = Qt::PushButton.new(@centralwidget)
+    @enqueue_folder.objectName = "enqueue_folder"
+
+    @horizontalLayout.addWidget(@enqueue_folder)
+
+    @enqueue_file = Qt::PushButton.new(@centralwidget)
+    @enqueue_file.objectName = "enqueue_file"
+
+    @horizontalLayout.addWidget(@enqueue_file)
+
+    @pushButton_2 = Qt::PushButton.new(@centralwidget)
+    @pushButton_2.objectName = "pushButton_2"
+
+    @horizontalLayout.addWidget(@pushButton_2)
+
+    @horizontalSpacer = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
+
+    @horizontalLayout.addItem(@horizontalSpacer)
+
+
+    @verticalLayout.addLayout(@horizontalLayout)
+
     @song_list = Qt::ListWidget.new(@centralwidget)
     @song_list.objectName = "song_list"
 
     @verticalLayout.addWidget(@song_list)
+
+    @verticalLayout_2 = Qt::VBoxLayout.new()
+    @verticalLayout_2.objectName = "verticalLayout_2"
+    @label = Qt::Label.new(@centralwidget)
+    @label.objectName = "label"
+
+    @verticalLayout_2.addWidget(@label)
+
+    @search = Qt::LineEdit.new(@centralwidget)
+    @search.objectName = "search"
+
+    @verticalLayout_2.addWidget(@search)
+
+
+    @verticalLayout.addLayout(@verticalLayout_2)
 
     listWindow.centralWidget = @centralwidget
 
@@ -39,6 +86,10 @@ class Ui_ListWindow
 
     def retranslateUi(listWindow)
     listWindow.windowTitle = Qt::Application.translate("ListWindow", "MainWindow", nil, Qt::Application::UnicodeUTF8)
+    @enqueue_folder.text = Qt::Application.translate("ListWindow", "PushButton", nil, Qt::Application::UnicodeUTF8)
+    @enqueue_file.text = Qt::Application.translate("ListWindow", "add", nil, Qt::Application::UnicodeUTF8)
+    @pushButton_2.text = Qt::Application.translate("ListWindow", "rem", nil, Qt::Application::UnicodeUTF8)
+    @label.text = Qt::Application.translate("ListWindow", "Search:", nil, Qt::Application::UnicodeUTF8)
     end # retranslateUi
 
     def retranslate_ui(listWindow)

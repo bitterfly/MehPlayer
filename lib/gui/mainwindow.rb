@@ -11,7 +11,7 @@ module MehPlayer
 
       slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()',
             'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()',
-            'save_playlist()', 'open_playlist()'
+            'save_playlist()', 'open_playlist()', 'set_description()'
 
       def initialize(parent = nil)
         super(parent)
@@ -56,6 +56,8 @@ module MehPlayer
         connect(@ui.shuffle, SIGNAL('stateChanged(int)'), self, SLOT('shuffle()'))
         connect(@ui.save_playlist, SIGNAL('clicked()'), self, SLOT('save_playlist()'))
         connect(@ui.open_playlist, SIGNAL('clicked()'), self, SLOT('open_playlist()'))
+        connect(@ui.set_description, SIGNAL('clicked()'), self, SLOT('set_description()'))
+
       end
 
       def load_icons
@@ -114,9 +116,6 @@ module MehPlayer
       end
 
       def play
-        if @ui.mute.checked?
-          mute
-        end
         if @player.playing? 
           if @player.paused?
             pause_mode
@@ -133,6 +132,7 @@ module MehPlayer
             pause_mode
           end
         end
+        mute
       end
 
       def stop
@@ -149,8 +149,11 @@ module MehPlayer
       end
 
       def volume
-        unless @player.playlist.empty? 
+        if @player.playing? 
+          @ui.volume.enabled = true
           @player.action.volume = @ui.volume.value.to_f/100
+        else
+          @ui.volume.enabled = false
         end
       end
 
@@ -171,21 +174,19 @@ module MehPlayer
           @player.next_song
           if @player.current_song <= @player.playlist.size
             @player.play(@player.current_song)
-            mute if @ui.mute.checked?
+            mute
           else
-            stop
+            @player.play(@player.playlist.size - 1)
           end
         end  
       end
       
       def prev
         unless @player.playlist.empty?
-          if @player.current_song >= 1
-            @player.current_song -= 1
+          @player.prev_song
+          if @player.current_song >= 0 
             @player.play(@player.current_song)
-            if @ui.mute.checked?
-              mute
-            end
+            mute
           else
             @player.play(0)
           end
@@ -215,6 +216,14 @@ module MehPlayer
             @player.playlist = YAML.load(File.read(fileName))
             @list.songs = @player.playlist
           end
+      end
+
+      def set_description
+        description = Qt::InputDialog.getText(
+          self, @player.playlist[@player.current_song].title, 
+          "Enter description",Qt::LineEdit::Normal, 
+          @player.playlist[@player.current_song].description)
+          @player.playlist[@player.current_song].description = description
       end
     end
   end

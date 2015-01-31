@@ -16,7 +16,6 @@ module MehPlayer
           @length = fileref.audio_properties.length
           @track = tag.track
         end
-        @description = (@title || "") + ' ' + (@artist || "")
       end
     end
 

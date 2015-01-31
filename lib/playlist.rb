@@ -53,13 +53,6 @@ module MehPlayer
       albums.to_h
     end
 
-    def find_by_description(keywords)
-      keywords.map do |keyword|
-        @songs.select { |song| song.description.downcase.split.include? keyword.downcase }
-      end.inject :&
-
-    end
-
     def print(albums)
       albums.each do |album, songs| 
         puts "******#{album}******\n"
