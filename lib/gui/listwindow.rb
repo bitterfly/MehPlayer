@@ -21,8 +21,8 @@ module MehPlayer
 
       def songs=(playlist)
         @ui.song_list.clear
-        playlist.each do |song|
-          Qt::ListWidgetItem.new(song.to_s, @ui.song_list)
+        playlist.each_with_index do |song, index|
+          Qt::ListWidgetItem.new(song.to_s, @ui.song_list).setData(Qt::UserRole, Qt::Variant.new(index))
         end
       end
 
@@ -42,11 +42,11 @@ module MehPlayer
 
       def enqueue_file
         fileName = Qt::FileDialog.getOpenFileName(self)
-          if !fileName.nil? and Song.audio_file?(fileName)
-            playlist = Playlist.new([Song.new(fileName)])
-            @player.playlist += playlist.songs
-            self.songs = @player.playlist
-          end
+        if !fileName.nil? and Song.audio_file?(fileName)
+          playlist = Playlist.new([Song.new(fileName)])
+          @player.playlist += playlist.songs
+          self.songs = @player.playlist
+        end
       end
 
       def enqueue_folder
