@@ -131,6 +131,7 @@ module MehPlayer
           end
         else
           unless @player.playlist.empty?
+            bright_screen
             @player.play(0)
           end
         end
