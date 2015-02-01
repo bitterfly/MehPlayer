@@ -6,7 +6,7 @@ require 'player'
 module MehPlayer
   module Gui  
     class ListWindow < Qt::MainWindow
-      slots 'choose_song()', 'search()', 'enqueue_file()', 'enqueue_folder()' 
+      slots 'choose_song()', 'search()', 'enqueue_file()', 'enqueue_folder()', 'remove()', 'delete_all()'
 
       def initialize(player, parent = nil)
         super(parent)
@@ -17,27 +17,37 @@ module MehPlayer
         connect(@ui.search, SIGNAL('textChanged(const QString &)'), self, SLOT('search()'))
         connect(@ui.enqueue_file, SIGNAL('clicked()'), self, SLOT('enqueue_file()'))
         connect(@ui.enqueue_folder, SIGNAL('clicked()'), self, SLOT('enqueue_folder()'))
+        connect(@ui.remove, SIGNAL('clicked()'), self, SLOT('remove()'))
+        connect(@ui.delete_all, SIGNAL('clicked()'), self, SLOT('delete_all()'))
       end
 
       def songs=(playlist)
         @ui.song_list.clear
         playlist.each_with_index do |song, index|
-          Qt::ListWidgetItem.new(song.to_s, @ui.song_list).setData(Qt::UserRole, Qt::Variant.new(index))
+          Qt::ListWidgetItem.new(song.to_s, @ui.song_list).setData(Qt::UserRole, Qt::Variant.new(@player.playlist.index(song)))
         end
       end
 
       def remove
-        p @ui.song_list.item(song).font
-        item = @ui.song_list.takeItem(song).font.bold = true
+        selected_song = @ui.song_list.takeItem(@ui.song_list.currentRow())
+        parent.next if @player.current_song == selected_song.data(Qt::UserRole).to_i
+        @player.playlist.delete_at(selected_song.data(Qt::UserRole).to_i)
+        p @player.playlist
+      end
+
+      def delete_all
+        parent.stop
+        @ui.song_list.clear
+        @player.playlist = []
       end
 
       def choose_song
-        @player.play(@ui.song_list.currentRow())
+        @player.play(@ui.song_list.currentItem().data(Qt::UserRole).to_i)
       end
 
       def search
         keywords = @ui.search.text.split
-        self.songs = @player.find_by_description(keywords) | @player.find_by_info(keywords)
+        self.songs = ((@player.find_by_description(keywords) | @player.find_by_info(keywords)) or @player.playlist)
       end
 
       def enqueue_file
@@ -51,12 +61,12 @@ module MehPlayer
 
       def enqueue_folder
         folderName = Qt::FileDialog.getExistingDirectory(self)
-          if !folderName.nil?
-            playlist = Playlist.new
-            playlist.scan_folder(folderName)
-            @player.playlist += playlist.songs
-            self.songs = @player.playlist
-          end
+        if !folderName.nil?
+          playlist = Playlist.new
+          playlist.scan_folder(folderName)
+          @player.playlist += playlist.songs
+          self.songs = @player.playlist
+        end
       end
 
     end

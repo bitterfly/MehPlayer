@@ -20,21 +20,28 @@
       <item>
        <widget class="QPushButton" name="enqueue_folder">
         <property name="text">
-         <string>PushButton</string>
+         <string>folder</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="enqueue_file">
         <property name="text">
-         <string>add</string>
+         <string>file</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="remove">
         <property name="text">
          <string>rem</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="delete_all">
+        <property name="text">
+         <string>del</string>
         </property>
        </widget>
       </item>
