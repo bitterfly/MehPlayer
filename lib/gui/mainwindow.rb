@@ -11,7 +11,7 @@ module MehPlayer
 
       slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()',
             'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()',
-            'save_playlist()', 'open_playlist()', 'set_description()'
+            'save_playlist()', 'open_playlist()', 'set_description()', 'repeat()'
 
       def initialize(parent = nil)
         super(parent)
@@ -30,6 +30,7 @@ module MehPlayer
           @ui.album.text = @player.playlist[@player.current_song].album
           @ui.track.text = '(' + @player.playlist[@player.current_song].track.to_s + ')'
         end
+
         @list = ListWindow.new(@player, self)
         load_icons
         @ui.play_button.icon = @play_icon
@@ -41,6 +42,7 @@ module MehPlayer
         @ui.open_playlist.icon = @open_playlist_icon
         @ui.save_playlist.icon = @save_playlist_icon
         @ui.show_list.icon = @list_icon
+        @ui.set_description.icon = @description_icon
         @ui.info.hide
 
         connect(@ui.show_list, SIGNAL('clicked()'), self, SLOT('show_list()'))
@@ -57,7 +59,7 @@ module MehPlayer
         connect(@ui.save_playlist, SIGNAL('clicked()'), self, SLOT('save_playlist()'))
         connect(@ui.open_playlist, SIGNAL('clicked()'), self, SLOT('open_playlist()'))
         connect(@ui.set_description, SIGNAL('clicked()'), self, SLOT('set_description()'))
-
+        connect(@ui.repeat, SIGNAL('clicked()'), self, SLOT('repeat()'))
       end
 
       def load_icons
@@ -71,6 +73,7 @@ module MehPlayer
         @list_icon = Qt::Icon.new("resources/playlist.png")
         @save_playlist_icon = Qt::Icon.new("resources/save_playlist.png")
         @open_playlist_icon = Qt::Icon.new("resources/open_playlist.png")
+        @description_icon = Qt::Icon.new("resources/description.png")
 
       end
 
@@ -173,7 +176,11 @@ module MehPlayer
             @player.play(@player.current_song)
             mute
           else
-            @player.play(@player.playlist.size - 1)
+            if @player.shuffle
+              @player.play(0)
+            else  
+              @player.play(@player.playlist.size - 1)
+            end
           end
         else
           stop
@@ -195,7 +202,10 @@ module MehPlayer
       def shuffle
         @player.shuffle = (not @player.shuffle)
       end
-
+      
+      def repeat
+        @player.repeat = (not @player.repeat)
+      end
       def show_list
         @list.show
       end

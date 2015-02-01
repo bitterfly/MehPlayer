@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sun Feb 1 13:37:32 2015
+** Created: Sun Feb 1 17:58:14 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -38,8 +38,10 @@ class Ui_MainWindow
     attr_reader :stop_button
     attr_reader :next
     attr_reader :horizontalSpacer_3
+    attr_reader :horizontalSpacer_4
     attr_reader :shuffle
     attr_reader :mute
+    attr_reader :repeat
     attr_reader :set_description
     attr_reader :show_list
     attr_reader :line
@@ -240,6 +242,10 @@ class Ui_MainWindow
 
     @horizontalLayout.addWidget(@horizontalFrame_3)
 
+    @horizontalSpacer_4 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
+
+    @horizontalLayout.addItem(@horizontalSpacer_4)
+
     @shuffle = Qt::CheckBox.new(@horizontalFrame)
     @shuffle.objectName = "shuffle"
     @shuffle.maximumSize = Qt::Size.new(25, 25)
@@ -276,6 +282,25 @@ class Ui_MainWindow
 "  }"
 
     @horizontalLayout.addWidget(@mute)
+
+    @repeat = Qt::CheckBox.new(@horizontalFrame)
+    @repeat.objectName = "repeat"
+    @repeat.maximumSize = Qt::Size.new(25, 25)
+    @repeat.styleSheet = " QCheckBox::indicator {\n" \
+"     width: 18px;\n" \
+"     height: 18px;\n" \
+" }\n" \
+"\n" \
+"  QCheckBox::indicator:checked\n" \
+"  {\n" \
+"    image: url(./resources/unrepeat.png);\n" \
+"  }\n" \
+"  QCheckBox::indicator:unchecked\n" \
+"  {\n" \
+"    image: url(./resources/repeat.png);;\n" \
+"  }"
+
+    @horizontalLayout.addWidget(@repeat)
 
     @set_description = Qt::PushButton.new(@horizontalFrame)
     @set_description.objectName = "set_description"
@@ -359,6 +384,7 @@ class Ui_MainWindow
     @next.text = ''
     @shuffle.text = ''
     @mute.text = ''
+    @repeat.text = Qt::Application.translate("MainWindow", "repeat", nil, Qt::Application::UnicodeUTF8)
     @set_description.text = ''
     @show_list.text = ''
     end # retranslateUi

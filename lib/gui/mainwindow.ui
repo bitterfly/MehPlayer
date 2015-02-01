@@ -385,6 +385,19 @@ background: rgb(165, 165, 167)</string>
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QCheckBox" name="shuffle">
            <property name="maximumSize">
             <size>
@@ -431,6 +444,34 @@ background: rgb(165, 165, 167)</string>
            </property>
            <property name="text">
             <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="repeat">
+           <property name="maximumSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"> QCheckBox::indicator {
+     width: 18px;
+     height: 18px;
+ }
+
+  QCheckBox::indicator:checked
+  {
+    image: url(./resources/unrepeat.png);
+  }
+  QCheckBox::indicator:unchecked
+  {
+    image: url(./resources/repeat.png);;
+  }</string>
+           </property>
+           <property name="text">
+            <string>repeat</string>
            </property>
           </widget>
          </item>

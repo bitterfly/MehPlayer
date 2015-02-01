@@ -13,55 +13,76 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background: rgb(163, 190, 135)</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="enqueue_folder">
+        <property name="styleSheet">
+         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+color: rgb(255,255,255);
+background: rgb(165, 165, 167)</string>
+        </property>
         <property name="text">
-         <string>folder</string>
+         <string>enqueue folder</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="enqueue_file">
+        <property name="styleSheet">
+         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+color: rgb(255,255,255);
+background: rgb(165, 165, 167)</string>
+        </property>
         <property name="text">
-         <string>file</string>
+         <string>enqueue file</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="remove">
+        <property name="styleSheet">
+         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+color: rgb(255,255,255);
+background: rgb(165, 165, 167)</string>
+        </property>
         <property name="text">
-         <string>rem</string>
+         <string>remove song</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="delete_all">
+        <property name="styleSheet">
+         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+color: rgb(255,255,255);
+background: rgb(165, 165, 167)</string>
+        </property>
         <property name="text">
-         <string>del</string>
+         <string>delete all</string>
         </property>
        </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="song_list"/>
+     <widget class="QListWidget" name="song_list">
+      <property name="styleSheet">
+       <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+background: rgb(204, 255, 223)</string>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -73,7 +94,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="search"/>
+       <widget class="QLineEdit" name="search">
+        <property name="styleSheet">
+         <string notr="true">background: none</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

@@ -4,11 +4,12 @@ require 'playlist'
 module MehPlayer
   class Player
     attr_reader :playlist, :action, :seek
-    attr_accessor :current_song, :shuffle
+    attr_accessor :current_song, :shuffle, :repeat
     def initialize(playlist = Playlist.new, &block)
       @block = block
       @playlist = playlist.songs
       @shuffle = false
+      @repeat = false
       @timer = Thread.new(block) do |block|
         loop do
           while action and (action.playing? or action.paused?)
@@ -42,7 +43,11 @@ module MehPlayer
 
     def next_song
       unless shuffle
-        @current_song += 1
+        if repeat
+          @current_song = 0
+        else
+          @current_song += 1
+        end
       else
         @current_song = rand(@playlist.size)
       end
