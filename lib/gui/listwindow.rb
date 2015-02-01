@@ -29,10 +29,14 @@ module MehPlayer
       end
 
       def remove
-        selected_song = @ui.song_list.takeItem(@ui.song_list.currentRow())
-        parent.next if @player.current_song == selected_song.data(Qt::UserRole).to_i
-        @player.playlist.delete_at(selected_song.data(Qt::UserRole).to_i)
-        p @player.playlist
+        selected_song = @ui.song_list.takeItem(@ui.song_list.currentRow()).data(Qt::UserRole).to_i
+        @player.playlist.delete_at(selected_song)
+        self.songs = @player.playlist
+        if @player.playlist.empty?
+          parent.stop
+        else
+          @player.play(@player.current_song) if @player.current_song == selected_song
+        end
       end
 
       def delete_all

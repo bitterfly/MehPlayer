@@ -136,12 +136,10 @@ module MehPlayer
       end
 
       def stop
-        unless @player.playlist.empty?
-         dead_screen
-         @player.stop
-         @ui.info.hide
-         play_mode
-        end
+        dead_screen
+        @player.stop
+        @ui.info.hide
+        play_mode
       end
 
       def seek
@@ -178,6 +176,8 @@ module MehPlayer
           else
             @player.play(@player.playlist.size - 1)
           end
+        else
+          stop
         end  
       end
       

@@ -97,7 +97,7 @@ module MehPlayer
     private
 
     def start
-      unless current_song >= playlist.size
+      if current_song < playlist.size
         @action = Rubygame::Music.load(playlist[current_song].filename)
         @seek = 0
         action.play
