@@ -109,6 +109,8 @@ module MehPlayer
 
       def bright_screen
         @ui.horizontalFrame_2.styleSheet = "background: rgb(255, 250, 255)"
+        @ui.info.show
+        pause_mode
       end
 
       def dead_screen
@@ -126,10 +128,7 @@ module MehPlayer
           end
         else
           unless @player.playlist.empty?
-            bright_screen
             @player.play(0)
-            @ui.info.show
-            pause_mode
           end
         end
         mute

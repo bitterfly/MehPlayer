@@ -46,6 +46,7 @@ module MehPlayer
       end
 
       def choose_song
+        parent.bright_screen
         @player.play(@ui.song_list.currentItem().data(Qt::UserRole).to_i)
       end
 
