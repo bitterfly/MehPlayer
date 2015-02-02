@@ -1,5 +1,6 @@
-require './ui_listwindow.rb'
+require 'gui/ui_listwindow.rb'
 require 'song'
+require 'Qt'
 require 'playlist'
 require 'player'
 

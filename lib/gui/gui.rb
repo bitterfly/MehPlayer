@@ -1,11 +1,11 @@
 require 'Qt'
-require './mainwindow.rb'
+require 'gui/mainwindow.rb'
 
 module MehPlayer
   module Gui
     app = Qt::Application.new(ARGV)
-    calculator = MainWindow.new
-    calculator.show
+    mainwindow = MainWindow.new
+    mainwindow.show
     app.exec
   end
 end

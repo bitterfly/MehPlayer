@@ -1,4 +1,4 @@
-require './ui_mainwindow.rb'
+require 'gui/ui_mainwindow.rb'
 require 'gui/listwindow'
 require 'song'
 require 'playlist'
@@ -63,17 +63,17 @@ module MehPlayer
       end
 
       def load_icons
-        @file_icon = Qt::Icon.new("resources/file.png")
-        @folder_icon = Qt::Icon.new("resources/folder.png")
-        @play_icon = Qt::Icon.new("resources/play.png")
-        @pause_icon = Qt::Icon.new("resources/pause.png")
-        @stop_icon = Qt::Icon.new("resources/stop.png")
-        @next_icon = Qt::Icon.new("resources/next.png")
-        @prev_icon = Qt::Icon.new("resources/prev.png")
-        @list_icon = Qt::Icon.new("resources/playlist.png")
-        @save_playlist_icon = Qt::Icon.new("resources/save_playlist.png")
-        @open_playlist_icon = Qt::Icon.new("resources/open_playlist.png")
-        @description_icon = Qt::Icon.new("resources/description.png")
+        @file_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/file.png")
+        @folder_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/folder.png")
+        @play_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/play.png")
+        @pause_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/pause.png")
+        @stop_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/stop.png")
+        @next_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/next.png")
+        @prev_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/prev.png")
+        @list_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/playlist.png")
+        @save_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/save_playlist.png")
+        @open_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/open_playlist.png")
+        @description_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/description.png")
 
       end
 
