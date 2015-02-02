@@ -29,9 +29,9 @@
       <item>
        <widget class="QPushButton" name="enqueue_folder">
         <property name="styleSheet">
-         <string notr="true">font: 75 9pt &quot;NanumGothic&quot;;
+         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
 color: rgb(255,255,255);
-background:rgb(80, 120, 114)</string>
+background: rgb(165, 165, 167)</string>
         </property>
         <property name="text">
          <string>enqueue folder</string>
@@ -43,7 +43,7 @@ background:rgb(80, 120, 114)</string>
         <property name="styleSheet">
          <string notr="true">font: 75 9pt &quot;NanumGothic&quot;;
 color: rgb(255,255,255);
-background:rgb(80, 120, 114)</string>
+background: rgb(165, 165, 167)</string>
         </property>
         <property name="text">
          <string>enqueue file</string>
@@ -55,7 +55,7 @@ background:rgb(80, 120, 114)</string>
         <property name="styleSheet">
          <string notr="true">font: 75 9pt &quot;NanumGothic&quot;;
 color: rgb(255,255,255);
-background:rgb(80, 120, 114)</string>
+background: rgb(165, 165, 167)</string>
         </property>
         <property name="text">
          <string>remove song</string>
@@ -67,7 +67,7 @@ background:rgb(80, 120, 114)</string>
         <property name="styleSheet">
          <string notr="true">font: 75 9pt &quot;NanumGothic&quot;;
 color: rgb(255,255,255);
-background:rgb(80, 120, 114)</string>
+background: rgb(165, 165, 167)</string>
         </property>
         <property name="text">
          <string>delete all</string>

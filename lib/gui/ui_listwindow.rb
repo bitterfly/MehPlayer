@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'listwindow.ui'
 **
-** Created: Sun Feb 1 17:58:23 2015
+** Created: Sun Feb 1 21:08:28 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -36,33 +36,33 @@ class Ui_ListWindow
     @horizontalLayout.objectName = "horizontalLayout"
     @enqueue_folder = Qt::PushButton.new(@centralwidget)
     @enqueue_folder.objectName = "enqueue_folder"
-    @enqueue_folder.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+    @enqueue_folder.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background: rgb(165, 165, 167)"
+"background:rgb(80, 120, 114)"
 
     @horizontalLayout.addWidget(@enqueue_folder)
 
     @enqueue_file = Qt::PushButton.new(@centralwidget)
     @enqueue_file.objectName = "enqueue_file"
-    @enqueue_file.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+    @enqueue_file.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background: rgb(165, 165, 167)"
+"background:rgb(80, 120, 114)"
 
     @horizontalLayout.addWidget(@enqueue_file)
 
     @remove = Qt::PushButton.new(@centralwidget)
     @remove.objectName = "remove"
-    @remove.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+    @remove.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background: rgb(165, 165, 167)"
+"background:rgb(80, 120, 114)"
 
     @horizontalLayout.addWidget(@remove)
 
     @delete_all = Qt::PushButton.new(@centralwidget)
     @delete_all.objectName = "delete_all"
-    @delete_all.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
+    @delete_all.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background: rgb(165, 165, 167)"
+"background:rgb(80, 120, 114)"
 
     @horizontalLayout.addWidget(@delete_all)
 
