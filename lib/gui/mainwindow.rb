@@ -9,7 +9,7 @@ module MehPlayer
   module Gui  
     class MainWindow < Qt::MainWindow
 
-      slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()',
+      slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()', 'color()',
             'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()',
             'save_playlist()', 'open_playlist()', 'set_description()', 'repeat()'
 
@@ -44,6 +44,8 @@ module MehPlayer
         @ui.show_list.icon = @list_icon
         @ui.set_description.icon = @description_icon
         @ui.info.hide
+        @skin = 0
+        color
 
         connect(@ui.show_list, SIGNAL('clicked()'), self, SLOT('show_list()'))
         connect(@ui.open_file, SIGNAL('clicked()'), self, SLOT('open_file()'))
@@ -60,6 +62,18 @@ module MehPlayer
         connect(@ui.open_playlist, SIGNAL('clicked()'), self, SLOT('open_playlist()'))
         connect(@ui.set_description, SIGNAL('clicked()'), self, SLOT('set_description()'))
         connect(@ui.repeat, SIGNAL('clicked()'), self, SLOT('repeat()'))
+        connect(@ui.color, SIGNAL('clicked()'), self, SLOT('color()'))
+      end
+
+      def color
+        colors = ["88, 127, 122", 
+                  "190, 232, 204",
+                  "175, 198, 132"]
+        @ui.color.styleSheet = "background:rgb(%s)" % colors[(@skin < colors.size - 1) ? (@skin + 1) : 0]
+        @ui.widget.styleSheet = "background:rgb(%s)" % colors[@skin]
+        @ui.horizontalFrame.styleSheet = "background:rgb(%s)" % colors[@skin]
+        @ui.horizontalFrame_2.styleSheet = "background:rgb(%s)" % colors[@skin]
+        @skin = (@skin < colors.size - 1) ? @skin + 1 : 0 
       end
 
       def load_icons
@@ -74,7 +88,9 @@ module MehPlayer
         @save_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/save_playlist.png")
         @open_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/open_playlist.png")
         @description_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/description.png")
-
+        @ui.mute.styleSheet %= {folder: File.dirname(__FILE__)}
+        @ui.shuffle.styleSheet %= {folder: File.dirname(__FILE__)}
+        @ui.repeat.styleSheet %= {folder: File.dirname(__FILE__)}
       end
 
       def open_file

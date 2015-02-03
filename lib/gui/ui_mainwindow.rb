@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sun Feb 1 17:58:14 2015
+** Created: Tue Feb 3 14:07:36 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -44,6 +44,7 @@ class Ui_MainWindow
     attr_reader :repeat
     attr_reader :set_description
     attr_reader :show_list
+    attr_reader :color
     attr_reader :line
     attr_reader :volume
 
@@ -51,23 +52,24 @@ class Ui_MainWindow
     if mainWindow.objectName.nil?
         mainWindow.objectName = "mainWindow"
     end
-    mainWindow.resize(534, 177)
+    mainWindow.resize(574, 177)
     @sizePolicy = Qt::SizePolicy.new(Qt::SizePolicy::Fixed, Qt::SizePolicy::Fixed)
     @sizePolicy.setHorizontalStretch(0)
     @sizePolicy.setVerticalStretch(0)
     @sizePolicy.heightForWidth = mainWindow.sizePolicy.hasHeightForWidth
     mainWindow.sizePolicy = @sizePolicy
     mainWindow.cursor = Qt::Cursor.new(Qt::OpenHandCursor)
+    mainWindow.styleSheet = ""
     @widget = Qt::Widget.new(mainWindow)
     @widget.objectName = "widget"
-    @widget.styleSheet = "background:rgb(88, 127, 122)"
+    @widget.styleSheet = ""
     @horizontalLayout_6 = Qt::HBoxLayout.new(@widget)
     @horizontalLayout_6.objectName = "horizontalLayout_6"
     @vertical = Qt::VBoxLayout.new()
     @vertical.objectName = "vertical"
     @horizontalFrame_2 = Qt::Frame.new(@widget)
     @horizontalFrame_2.objectName = "horizontalFrame_2"
-    @horizontalFrame_2.styleSheet = "background:rgb(80, 120, 114)"
+    @horizontalFrame_2.styleSheet = ""
     @horizontalFrame_2.frameShape = Qt::Frame::Panel
     @horizontalFrame_2.frameShadow = Qt::Frame::Sunken
     @horizontalFrame_2.lineWidth = 3
@@ -143,7 +145,7 @@ class Ui_MainWindow
 
     @horizontalFrame = Qt::Frame.new(@widget)
     @horizontalFrame.objectName = "horizontalFrame"
-    @horizontalFrame.styleSheet = "background:rgb(88, 127, 122)"
+    @horizontalFrame.styleSheet = ""
     @horizontalFrame.frameShape = Qt::Frame::NoFrame
     @horizontalFrame.frameShadow = Qt::Frame::Sunken
     @horizontalFrame.lineWidth = 3
@@ -256,11 +258,11 @@ class Ui_MainWindow
 "\n" \
 "  QCheckBox::indicator:checked\n" \
 "  {\n" \
-"    image: url(./resources/shuffle_off.png);\n" \
+"    image: url(\"%{folder}/resources/shuffle_off.png\");\n" \
 "  }\n" \
 "  QCheckBox::indicator:unchecked\n" \
 "  {\n" \
-"    image: url(./resources/shuffle.png);;\n" \
+"    image: url(\"%{folder}/resources/shuffle.png\");\n" \
 "  }"
 
     @horizontalLayout.addWidget(@shuffle)
@@ -274,11 +276,11 @@ class Ui_MainWindow
 "\n" \
 "  QCheckBox::indicator:checked\n" \
 "  {\n" \
-"    image: url(./resources/mute2.png);\n" \
+"    image: url(\"%{folder}/resources/mute2.png\");\n" \
 "  }\n" \
 "  QCheckBox::indicator:unchecked\n" \
 "  {\n" \
-"    image: url(./resources/mute1.png);;\n" \
+"    image: url(\"%{folder}/resources/mute1.png\");\n" \
 "  }"
 
     @horizontalLayout.addWidget(@mute)
@@ -293,11 +295,11 @@ class Ui_MainWindow
 "\n" \
 "  QCheckBox::indicator:checked\n" \
 "  {\n" \
-"    image: url(./resources/unrepeat.png);\n" \
+"    image: url(\"%{folder}/resources/unrepeat.png\");\n" \
 "  }\n" \
 "  QCheckBox::indicator:unchecked\n" \
 "  {\n" \
-"    image: url(./resources/repeat.png);;\n" \
+"    image: url(\"%{folder}/resources/repeat.png\");\n" \
 "  }"
 
     @horizontalLayout.addWidget(@repeat)
@@ -317,6 +319,13 @@ class Ui_MainWindow
 "background: rgb(165, 165, 167)"
 
     @horizontalLayout.addWidget(@show_list)
+
+    @color = Qt::PushButton.new(@horizontalFrame)
+    @color.objectName = "color"
+    @color.maximumSize = Qt::Size.new(25, 25)
+    @color.styleSheet = "background: none"
+
+    @horizontalLayout.addWidget(@color)
 
 
     @vertical.addWidget(@horizontalFrame)
@@ -387,6 +396,7 @@ class Ui_MainWindow
     @repeat.text = Qt::Application.translate("MainWindow", "repeat", nil, Qt::Application::UnicodeUTF8)
     @set_description.text = ''
     @show_list.text = ''
+    @color.text = ''
     end # retranslateUi
 
     def retranslate_ui(mainWindow)

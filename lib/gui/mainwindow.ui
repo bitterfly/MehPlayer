@@ -27,7 +27,7 @@
   </property>
   <widget class="QWidget" name="widget">
    <property name="styleSheet">
-    <string notr="true">background:rgb(88, 127, 122)</string>
+    <string notr="true"/>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
@@ -35,7 +35,7 @@
       <item>
        <widget class="QFrame" name="horizontalFrame_2">
         <property name="styleSheet">
-         <string notr="true">background:rgb(80, 120, 114)</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::Panel</enum>
@@ -170,7 +170,7 @@
       <item>
        <widget class="QFrame" name="horizontalFrame">
         <property name="styleSheet">
-         <string notr="true">background:rgb(88, 127, 122)</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -416,11 +416,11 @@ background: rgb(165, 165, 167)</string>
 
   QCheckBox::indicator:checked
   {
-    image: url(./resources/shuffle_off.png);
+    image: url(&quot;%{folder}/resources/shuffle_off.png&quot;);
   }
   QCheckBox::indicator:unchecked
   {
-    image: url(./resources/shuffle.png);;
+    image: url(&quot;%{folder}/resources/shuffle.png&quot;);
   }</string>
            </property>
            <property name="text">
@@ -438,11 +438,11 @@ background: rgb(165, 165, 167)</string>
 
   QCheckBox::indicator:checked
   {
-    image: url(./resources/mute2.png);
+    image: url(&quot;%{folder}/resources/mute2.png&quot;);
   }
   QCheckBox::indicator:unchecked
   {
-    image: url(./resources/mute1.png);;
+    image: url(&quot;%{folder}/resources/mute1.png&quot;);
   }</string>
            </property>
            <property name="text">
@@ -466,11 +466,11 @@ background: rgb(165, 165, 167)</string>
 
   QCheckBox::indicator:checked
   {
-    image: url(./resources/unrepeat.png);
+    image: url(&quot;%{folder}/resources/unrepeat.png&quot;);
   }
   QCheckBox::indicator:unchecked
   {
-    image: url(./resources/repeat.png);;
+    image: url(&quot;%{folder}/resources/repeat.png&quot;);
   }</string>
            </property>
            <property name="text">
@@ -506,6 +506,22 @@ background: rgb(165, 165, 167)</string>
            <property name="styleSheet">
             <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
 background: rgb(165, 165, 167)</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="color">
+           <property name="maximumSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background: none</string>
            </property>
            <property name="text">
             <string/>
