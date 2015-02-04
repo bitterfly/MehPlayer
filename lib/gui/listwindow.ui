@@ -77,12 +77,52 @@ background: rgb(165, 165, 167)</string>
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="song_list">
-      <property name="styleSheet">
-       <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="sort_by_author">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>17</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 75 8pt &quot;NanumGothic&quot;;</string>
+          </property>
+          <property name="text">
+           <string>author</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sort_by_title">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>17</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 75 8pt &quot;NanumGothic&quot;;</string>
+          </property>
+          <property name="text">
+           <string>title</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QListWidget" name="song_list">
+        <property name="styleSheet">
+         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
 background: rgb(204, 255, 223)</string>
-      </property>
-     </widget>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">

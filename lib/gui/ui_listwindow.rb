@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'listwindow.ui'
 **
-** Created: Sun Feb 1 21:08:28 2015
+** Created: Wed Feb 4 16:48:38 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -15,6 +15,10 @@ class Ui_ListWindow
     attr_reader :enqueue_file
     attr_reader :remove
     attr_reader :delete_all
+    attr_reader :verticalLayout_3
+    attr_reader :horizontalLayout_2
+    attr_reader :sort_by_author
+    attr_reader :sort_by_title
     attr_reader :song_list
     attr_reader :verticalLayout_2
     attr_reader :label
@@ -36,9 +40,9 @@ class Ui_ListWindow
     @horizontalLayout.objectName = "horizontalLayout"
     @enqueue_folder = Qt::PushButton.new(@centralwidget)
     @enqueue_folder.objectName = "enqueue_folder"
-    @enqueue_folder.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
+    @enqueue_folder.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "color: rgb(255,255,255);\n" \
-"background:rgb(80, 120, 114)"
+"background: rgb(165, 165, 167)"
 
     @horizontalLayout.addWidget(@enqueue_folder)
 
@@ -46,7 +50,7 @@ class Ui_ListWindow
     @enqueue_file.objectName = "enqueue_file"
     @enqueue_file.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background:rgb(80, 120, 114)"
+"background: rgb(165, 165, 167)"
 
     @horizontalLayout.addWidget(@enqueue_file)
 
@@ -54,7 +58,7 @@ class Ui_ListWindow
     @remove.objectName = "remove"
     @remove.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background:rgb(80, 120, 114)"
+"background: rgb(165, 165, 167)"
 
     @horizontalLayout.addWidget(@remove)
 
@@ -62,19 +66,43 @@ class Ui_ListWindow
     @delete_all.objectName = "delete_all"
     @delete_all.styleSheet = "font: 75 9pt \"NanumGothic\";\n" \
 "color: rgb(255,255,255);\n" \
-"background:rgb(80, 120, 114)"
+"background: rgb(165, 165, 167)"
 
     @horizontalLayout.addWidget(@delete_all)
 
 
     @verticalLayout.addLayout(@horizontalLayout)
 
+    @verticalLayout_3 = Qt::VBoxLayout.new()
+    @verticalLayout_3.objectName = "verticalLayout_3"
+    @horizontalLayout_2 = Qt::HBoxLayout.new()
+    @horizontalLayout_2.objectName = "horizontalLayout_2"
+    @sort_by_author = Qt::PushButton.new(@centralwidget)
+    @sort_by_author.objectName = "sort_by_author"
+    @sort_by_author.maximumSize = Qt::Size.new(16777215, 17)
+    @sort_by_author.styleSheet = "font: 75 8pt \"NanumGothic\";"
+
+    @horizontalLayout_2.addWidget(@sort_by_author)
+
+    @sort_by_title = Qt::PushButton.new(@centralwidget)
+    @sort_by_title.objectName = "sort_by_title"
+    @sort_by_title.maximumSize = Qt::Size.new(16777215, 17)
+    @sort_by_title.styleSheet = "font: 75 8pt \"NanumGothic\";"
+
+    @horizontalLayout_2.addWidget(@sort_by_title)
+
+
+    @verticalLayout_3.addLayout(@horizontalLayout_2)
+
     @song_list = Qt::ListWidget.new(@centralwidget)
     @song_list.objectName = "song_list"
     @song_list.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "background: rgb(204, 255, 223)"
 
-    @verticalLayout.addWidget(@song_list)
+    @verticalLayout_3.addWidget(@song_list)
+
+
+    @verticalLayout.addLayout(@verticalLayout_3)
 
     @verticalLayout_2 = Qt::VBoxLayout.new()
     @verticalLayout_2.objectName = "verticalLayout_2"
@@ -109,6 +137,8 @@ class Ui_ListWindow
     @enqueue_file.text = Qt::Application.translate("ListWindow", "enqueue file", nil, Qt::Application::UnicodeUTF8)
     @remove.text = Qt::Application.translate("ListWindow", "remove song", nil, Qt::Application::UnicodeUTF8)
     @delete_all.text = Qt::Application.translate("ListWindow", "delete all", nil, Qt::Application::UnicodeUTF8)
+    @sort_by_author.text = Qt::Application.translate("ListWindow", "author", nil, Qt::Application::UnicodeUTF8)
+    @sort_by_title.text = Qt::Application.translate("ListWindow", "title", nil, Qt::Application::UnicodeUTF8)
     @label.text = Qt::Application.translate("ListWindow", "Search:", nil, Qt::Application::UnicodeUTF8)
     end # retranslateUi
 

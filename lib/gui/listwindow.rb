@@ -7,7 +7,8 @@ require 'player'
 module MehPlayer
   module Gui  
     class ListWindow < Qt::MainWindow
-      slots 'choose_song()', 'search()', 'enqueue_file()', 'enqueue_folder()', 'remove()', 'delete_all()'
+      slots 'choose_song()', 'search()', 'enqueue_file()', 'enqueue_folder()', 'remove()', 'delete_all()',
+            'sort_by_author()', 'sort_by_title()'
 
       def initialize(player, parent = nil)
         super(parent)
@@ -20,6 +21,8 @@ module MehPlayer
         connect(@ui.enqueue_folder, SIGNAL('clicked()'), self, SLOT('enqueue_folder()'))
         connect(@ui.remove, SIGNAL('clicked()'), self, SLOT('remove()'))
         connect(@ui.delete_all, SIGNAL('clicked()'), self, SLOT('delete_all()'))
+        connect(@ui.sort_by_author, SIGNAL('clicked()'), self, SLOT('sort_by_author()'))
+        connect(@ui.sort_by_title, SIGNAL('clicked()'), self, SLOT('sort_by_title()'))
       end
 
       def songs=(playlist)
@@ -72,6 +75,26 @@ module MehPlayer
           playlist.scan_folder(folderName)
           @player.playlist += playlist.songs
           self.songs = @player.playlist
+        end
+      end
+
+      def sort_by_title
+        self.songs = @player.playlist.sort! do |x, y|
+          if (x.title == y.title) 
+            (x.artist <=> y.artist)
+          else
+            (x.title <=> y.title)
+          end
+        end
+      end
+
+      def sort_by_author
+        self.songs = @player.playlist.sort! do |x, y|
+          if (x.artist == y.artist) 
+            (x.title <=> y.title)
+          else
+            (x.artist <=> y.artist)
+          end
         end
       end
 
