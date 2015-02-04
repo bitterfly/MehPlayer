@@ -29,7 +29,7 @@ module MehPlayer
       def color(index)
         colors = ["157, 167, 181",
                   "163, 190, 135",
-                  "173, 169, 178"] 
+                  "170, 209, 102"] 
         @ui.centralwidget.styleSheet = "background:rgb(%s)" % colors[index]
       end
 

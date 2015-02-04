@@ -36,9 +36,9 @@ module MehPlayer
         @repeat_stylesheet = @ui.repeat.styleSheet
         @screen_stylesheet = @ui.horizontalFrame_2.styleSheet
         @list = ListWindow.new(@player, self)
-        @colors = [["gs", "139, 188, 175"],
+        @colors = [["sky", "139, 188, 175"],
                   ["main", "88, 127, 122"], 
-                  ["cats", "16,35,114"]]
+                  ["mellon", "255, 146, 149"]]
         @skin = 0
         color
         set_icons
