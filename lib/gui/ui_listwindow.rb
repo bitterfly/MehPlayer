@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'listwindow.ui'
 **
-** Created: Wed Feb 4 22:40:22 2015
+** Created: Thu Feb 5 00:31:09 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -19,6 +19,7 @@ class Ui_ListWindow
     attr_reader :horizontalLayout_2
     attr_reader :sort_by_author
     attr_reader :sort_by_title
+    attr_reader :sort_by_rating
     attr_reader :verticalLayout_2
     attr_reader :song_list
     attr_reader :label
@@ -91,6 +92,13 @@ class Ui_ListWindow
 
     @horizontalLayout_2.addWidget(@sort_by_title)
 
+    @sort_by_rating = Qt::PushButton.new(@centralwidget)
+    @sort_by_rating.objectName = "sort_by_rating"
+    @sort_by_rating.maximumSize = Qt::Size.new(16777215, 17)
+    @sort_by_rating.styleSheet = "font: 75 8pt \"NanumGothic\";"
+
+    @horizontalLayout_2.addWidget(@sort_by_rating)
+
 
     @verticalLayout_3.addLayout(@horizontalLayout_2)
 
@@ -139,6 +147,7 @@ class Ui_ListWindow
     @delete_all.text = Qt::Application.translate("ListWindow", "delete all", nil, Qt::Application::UnicodeUTF8)
     @sort_by_author.text = Qt::Application.translate("ListWindow", "author", nil, Qt::Application::UnicodeUTF8)
     @sort_by_title.text = Qt::Application.translate("ListWindow", "title", nil, Qt::Application::UnicodeUTF8)
+    @sort_by_rating.text = Qt::Application.translate("ListWindow", "rating", nil, Qt::Application::UnicodeUTF8)
     @label.text = Qt::Application.translate("ListWindow", "Search:", nil, Qt::Application::UnicodeUTF8)
     end # retranslateUi
 

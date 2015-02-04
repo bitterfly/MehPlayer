@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>669</width>
-    <height>170</height>
+    <width>687</width>
+    <height>179</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -59,6 +59,13 @@ background-image: url(&quot;%{folder}/resources/%{subfolder}/bg2.png&quot;);</st
               <string notr="true">background: none</string>
              </property>
              <layout class="QHBoxLayout" name="song_info">
+              <item>
+               <widget class="QLabel" name="rating">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QLabel" name="track">
                 <property name="styleSheet">
@@ -541,6 +548,21 @@ background: rgb(165, 165, 167)</string>
            </property>
            <property name="text">
             <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="rate">
+           <property name="styleSheet">
+            <string notr="true">background: none;
+subcontrol-origin: border;
+ subcontrol-position: bottom right; </string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>10</number>
            </property>
           </widget>
          </item>

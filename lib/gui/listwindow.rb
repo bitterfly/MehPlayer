@@ -8,7 +8,7 @@ module MehPlayer
   module Gui  
     class ListWindow < Qt::MainWindow
       slots 'choose_song()', 'search()', 'enqueue_file()', 'enqueue_folder()', 'remove()', 'delete_all()',
-            'sort_by_author()', 'sort_by_title()'
+            'sort_by_author()', 'sort_by_title()', 'sort_by_rating()'
 
       def initialize(player, parent = nil)
         super(parent)
@@ -24,6 +24,7 @@ module MehPlayer
         connect(@ui.delete_all, SIGNAL('clicked()'), self, SLOT('delete_all()'))
         connect(@ui.sort_by_author, SIGNAL('clicked()'), self, SLOT('sort_by_author()'))
         connect(@ui.sort_by_title, SIGNAL('clicked()'), self, SLOT('sort_by_title()'))
+        connect(@ui.sort_by_rating, SIGNAL('clicked()'), self, SLOT('sort_by_rating()'))
       end
 
       def color(index)
@@ -107,6 +108,12 @@ module MehPlayer
           else
             (x.artist <=> y.artist)
           end
+        end
+      end
+
+      def sort_by_rating
+        self.songs = @player.playlist.sort! do |x, y|
+          y.rate <=> x.rate
         end
       end
 

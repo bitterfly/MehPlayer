@@ -11,7 +11,7 @@ module MehPlayer
 
       slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()', 'color()',
             'volume()', 'mute()', 'next()', 'prev()', 'shuffle()', 'show_list()',
-            'save_playlist()', 'open_playlist()', 'set_description()', 'repeat()'
+            'save_playlist()', 'open_playlist()', 'set_description()', 'repeat()', 'rate()'
 
       def initialize(parent = nil)
         super(parent)
@@ -28,7 +28,9 @@ module MehPlayer
           @ui.artist.text = @player.playlist[@player.current_song].artist
           @ui.title.text = @player.playlist[@player.current_song].title
           @ui.album.text = @player.playlist[@player.current_song].album
+          @ui.rating.text = '-' + @player.playlist[@player.current_song].rate.to_s + '★' +'-' 
           @ui.track.text = '(' + @player.playlist[@player.current_song].track.to_s + ')'
+          @ui.rate.value = @player.playlist[@player.current_song].rate
         end
 
         @mute_stylesheet = @ui.mute.styleSheet
@@ -63,6 +65,7 @@ module MehPlayer
         connect(@ui.set_description, SIGNAL('clicked()'), self, SLOT('set_description()'))
         connect(@ui.repeat, SIGNAL('clicked()'), self, SLOT('repeat()'))
         connect(@ui.color, SIGNAL('clicked()'), self, SLOT('color()'))
+        connect(@ui.rate, SIGNAL('valueChanged(int)'), SLOT('rate()'))
       end
 
       def flatten_buttons
@@ -280,6 +283,15 @@ module MehPlayer
             @player.playlist[@player.current_song].description)
             @player.playlist[@player.current_song].description = description
         end
+      end
+
+      def rate
+        if @player.playing?
+          @ui.rate.enabled = true
+          @player.playlist[@player.current_song].rate = @ui.rate.value
+        else
+          @ui.rate.enabled = false
+        end  
       end
     end
   end

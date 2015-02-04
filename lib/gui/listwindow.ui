@@ -112,6 +112,22 @@ background: rgb(165, 165, 167)</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="sort_by_rating">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>17</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 75 8pt &quot;NanumGothic&quot;;</string>
+          </property>
+          <property name="text">
+           <string>rating</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>

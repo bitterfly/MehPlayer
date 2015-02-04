@@ -4,7 +4,7 @@ require 'rubygame'
 module MehPlayer
   class Song
     attr_reader :title, :artist, :album, :length, :filename, :track
-    attr_accessor :description
+    attr_accessor :description, :rate
     def initialize(filename)
       @filename = filename
       TagLib::FileRef.open(filename) do |fileref|
@@ -15,6 +15,7 @@ module MehPlayer
           @album = tag.album
           @length = fileref.audio_properties.length
           @track = tag.track
+          @rate = 1
         end
       end
     end

@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Wed Feb 4 22:34:25 2015
+** Created: Thu Feb 5 00:41:32 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -16,6 +16,7 @@ class Ui_MainWindow
     attr_reader :horizontalLayout_5
     attr_reader :info
     attr_reader :song_info
+    attr_reader :rating
     attr_reader :track
     attr_reader :title
     attr_reader :dash2
@@ -47,6 +48,7 @@ class Ui_MainWindow
     attr_reader :repeat
     attr_reader :set_description
     attr_reader :show_list
+    attr_reader :rate
     attr_reader :color
     attr_reader :line
     attr_reader :volume
@@ -55,7 +57,7 @@ class Ui_MainWindow
     if mainWindow.objectName.nil?
         mainWindow.objectName = "mainWindow"
     end
-    mainWindow.resize(669, 170)
+    mainWindow.resize(687, 179)
     @sizePolicy = Qt::SizePolicy.new(Qt::SizePolicy::Fixed, Qt::SizePolicy::Fixed)
     @sizePolicy.setHorizontalStretch(0)
     @sizePolicy.setVerticalStretch(0)
@@ -87,6 +89,11 @@ class Ui_MainWindow
     @info.styleSheet = "background: none"
     @song_info = Qt::HBoxLayout.new(@info)
     @song_info.objectName = "song_info"
+    @rating = Qt::Label.new(@info)
+    @rating.objectName = "rating"
+
+    @song_info.addWidget(@rating)
+
     @track = Qt::Label.new(@info)
     @track.objectName = "track"
     @track.styleSheet = "background: none"
@@ -337,6 +344,16 @@ class Ui_MainWindow
 
     @horizontalLayout.addWidget(@show_list)
 
+    @rate = Qt::SpinBox.new(@horizontalFrame)
+    @rate.objectName = "rate"
+    @rate.styleSheet = "background: none;\n" \
+"subcontrol-origin: border;\n" \
+" subcontrol-position: bottom right; "
+    @rate.minimum = 1
+    @rate.maximum = 10
+
+    @horizontalLayout.addWidget(@rate)
+
     @color = Qt::PushButton.new(@horizontalFrame)
     @color.objectName = "color"
     @color.maximumSize = Qt::Size.new(25, 25)
@@ -394,6 +411,7 @@ class Ui_MainWindow
 
     def retranslateUi(mainWindow)
     mainWindow.windowTitle = Qt::Application.translate("MainWindow", "MainWindow", nil, Qt::Application::UnicodeUTF8)
+    @rating.text = ''
     @track.text = ''
     @title.text = ''
     @dash2.text = Qt::Application.translate("MainWindow", "-", nil, Qt::Application::UnicodeUTF8)
