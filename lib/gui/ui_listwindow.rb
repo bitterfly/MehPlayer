@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'listwindow.ui'
 **
-** Created: Wed Feb 4 19:41:43 2015
+** Created: Wed Feb 4 22:40:22 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -19,8 +19,8 @@ class Ui_ListWindow
     attr_reader :horizontalLayout_2
     attr_reader :sort_by_author
     attr_reader :sort_by_title
-    attr_reader :song_list
     attr_reader :verticalLayout_2
+    attr_reader :song_list
     attr_reader :label
     attr_reader :search
 
@@ -94,18 +94,18 @@ class Ui_ListWindow
 
     @verticalLayout_3.addLayout(@horizontalLayout_2)
 
-    @song_list = Qt::ListWidget.new(@centralwidget)
-    @song_list.objectName = "song_list"
-    @song_list.styleSheet = "font: 9pt \"URW Gothic L\";\n" \
-"background-image: url(\"%{folder}/resources/%{subfolder}/bg.png\");"
-
-    @verticalLayout_3.addWidget(@song_list)
-
 
     @verticalLayout.addLayout(@verticalLayout_3)
 
     @verticalLayout_2 = Qt::VBoxLayout.new()
     @verticalLayout_2.objectName = "verticalLayout_2"
+    @song_list = Qt::ListWidget.new(@centralwidget)
+    @song_list.objectName = "song_list"
+    @song_list.styleSheet = "font: 63 9pt \"URW Gothic L\";\n" \
+"background-image: url(\"%{folder}/resources/%{subfolder}/bg.png\");"
+
+    @verticalLayout_2.addWidget(@song_list)
+
     @label = Qt::Label.new(@centralwidget)
     @label.objectName = "label"
 

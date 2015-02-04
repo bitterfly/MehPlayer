@@ -114,18 +114,18 @@ background: rgb(165, 165, 167)</string>
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="QListWidget" name="song_list">
-        <property name="styleSheet">
-         <string notr="true">font: 9pt &quot;URW Gothic L&quot;;
-background-image: url(&quot;%{folder}/resources/%{subfolder}/bg.png&quot;);</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QListWidget" name="song_list">
+        <property name="styleSheet">
+         <string notr="true">font: 63 9pt &quot;URW Gothic L&quot;;
+background-image: url(&quot;%{folder}/resources/%{subfolder}/bg.png&quot;);</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QLabel" name="label">
         <property name="text">

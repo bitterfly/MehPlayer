@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Wed Feb 4 22:06:58 2015
+** Created: Wed Feb 4 22:34:25 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -32,13 +32,16 @@ class Ui_MainWindow
     attr_reader :open_playlist
     attr_reader :open_file
     attr_reader :open_folder
+    attr_reader :horizontalSpacer_5
+    attr_reader :horizontalFrame_8
+    attr_reader :horizontalLayout_7
     attr_reader :horizontalSpacer_2
     attr_reader :prev
     attr_reader :play_button
     attr_reader :stop_button
     attr_reader :next
-    attr_reader :horizontalSpacer_3
     attr_reader :horizontalSpacer_4
+    attr_reader :horizontalSpacer_3
     attr_reader :shuffle
     attr_reader :mute
     attr_reader :repeat
@@ -147,15 +150,15 @@ class Ui_MainWindow
     @horizontalFrame = Qt::Frame.new(@widget)
     @horizontalFrame.objectName = "horizontalFrame"
     @horizontalFrame.styleSheet = ""
-    @horizontalFrame.frameShape = Qt::Frame::NoFrame
+    @horizontalFrame.frameShape = Qt::Frame::Box
     @horizontalFrame.frameShadow = Qt::Frame::Sunken
-    @horizontalFrame.lineWidth = 3
+    @horizontalFrame.lineWidth = 1
     @horizontalLayout = Qt::HBoxLayout.new(@horizontalFrame)
     @horizontalLayout.objectName = "horizontalLayout"
     @horizontalLayout.sizeConstraint = Qt::Layout::SetDefaultConstraint
     @horizontalFrame_3 = Qt::Frame.new(@horizontalFrame)
     @horizontalFrame_3.objectName = "horizontalFrame_3"
-    @horizontalFrame_3.frameShape = Qt::Frame::HLine
+    @horizontalFrame_3.frameShape = Qt::Frame::NoFrame
     @horizontalFrame_3.frameShadow = Qt::Frame::Sunken
     @buttons = Qt::HBoxLayout.new(@horizontalFrame_3)
     @buttons.objectName = "buttons"
@@ -195,19 +198,32 @@ class Ui_MainWindow
 
     @buttons.addWidget(@open_folder)
 
+
+    @horizontalLayout.addWidget(@horizontalFrame_3)
+
+    @horizontalSpacer_5 = Qt::SpacerItem.new(20, 20, Qt::SizePolicy::Maximum, Qt::SizePolicy::Minimum)
+
+    @horizontalLayout.addItem(@horizontalSpacer_5)
+
+    @horizontalFrame_8 = Qt::Frame.new(@horizontalFrame)
+    @horizontalFrame_8.objectName = "horizontalFrame_8"
+    @horizontalFrame_8.frameShape = Qt::Frame::HLine
+    @horizontalFrame_8.frameShadow = Qt::Frame::Raised
+    @horizontalLayout_7 = Qt::HBoxLayout.new(@horizontalFrame_8)
+    @horizontalLayout_7.objectName = "horizontalLayout_7"
     @horizontalSpacer_2 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
 
-    @buttons.addItem(@horizontalSpacer_2)
+    @horizontalLayout_7.addItem(@horizontalSpacer_2)
 
-    @prev = Qt::PushButton.new(@horizontalFrame_3)
+    @prev = Qt::PushButton.new(@horizontalFrame_8)
     @prev.objectName = "prev"
     @prev.maximumSize = Qt::Size.new(25, 25)
     @prev.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "background: rgb(165, 165, 167)"
 
-    @buttons.addWidget(@prev)
+    @horizontalLayout_7.addWidget(@prev)
 
-    @play_button = Qt::PushButton.new(@horizontalFrame_3)
+    @play_button = Qt::PushButton.new(@horizontalFrame_8)
     @play_button.objectName = "play_button"
     @sizePolicy.heightForWidth = @play_button.sizePolicy.hasHeightForWidth
     @play_button.sizePolicy = @sizePolicy
@@ -218,9 +234,9 @@ class Ui_MainWindow
     icon.addPixmap(Qt::Pixmap.new(":/icons/resources/play.png"), Qt::Icon::Normal, Qt::Icon::Off)
     @play_button.icon = icon
 
-    @buttons.addWidget(@play_button)
+    @horizontalLayout_7.addWidget(@play_button)
 
-    @stop_button = Qt::PushButton.new(@horizontalFrame_3)
+    @stop_button = Qt::PushButton.new(@horizontalFrame_8)
     @stop_button.objectName = "stop_button"
     @sizePolicy.heightForWidth = @stop_button.sizePolicy.hasHeightForWidth
     @stop_button.sizePolicy = @sizePolicy
@@ -228,26 +244,26 @@ class Ui_MainWindow
     @stop_button.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "background: rgb(165, 165, 167)"
 
-    @buttons.addWidget(@stop_button)
+    @horizontalLayout_7.addWidget(@stop_button)
 
-    @next = Qt::PushButton.new(@horizontalFrame_3)
+    @next = Qt::PushButton.new(@horizontalFrame_8)
     @next.objectName = "next"
     @next.maximumSize = Qt::Size.new(25, 25)
     @next.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
 "background: rgb(165, 165, 167)"
 
-    @buttons.addWidget(@next)
-
-    @horizontalSpacer_3 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
-
-    @buttons.addItem(@horizontalSpacer_3)
-
-
-    @horizontalLayout.addWidget(@horizontalFrame_3)
+    @horizontalLayout_7.addWidget(@next)
 
     @horizontalSpacer_4 = Qt::SpacerItem.new(40, 20, Qt::SizePolicy::Expanding, Qt::SizePolicy::Minimum)
 
-    @horizontalLayout.addItem(@horizontalSpacer_4)
+    @horizontalLayout_7.addItem(@horizontalSpacer_4)
+
+
+    @horizontalLayout.addWidget(@horizontalFrame_8)
+
+    @horizontalSpacer_3 = Qt::SpacerItem.new(20, 20, Qt::SizePolicy::Maximum, Qt::SizePolicy::Minimum)
+
+    @horizontalLayout.addItem(@horizontalSpacer_3)
 
     @shuffle = Qt::CheckBox.new(@horizontalFrame)
     @shuffle.objectName = "shuffle"

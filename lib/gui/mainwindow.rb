@@ -38,7 +38,7 @@ module MehPlayer
         @list = ListWindow.new(@player, self)
         @colors = [["gs", "139, 188, 175"],
                   ["main", "88, 127, 122"], 
-                  ["cats", "190, 232, 204"]]
+                  ["cats", "16,35,114"]]
         @skin = 0
         color
         set_icons
@@ -273,11 +273,13 @@ module MehPlayer
       end
 
       def set_description
-        description = Qt::InputDialog.getText(
-          self, @player.playlist[@player.current_song].title, 
-          "Enter description",Qt::LineEdit::Normal, 
-          @player.playlist[@player.current_song].description)
-          @player.playlist[@player.current_song].description = description
+        unless @player.playlist.empty?
+          description = Qt::InputDialog.getText(
+            self, @player.playlist[@player.current_song].title, 
+            "Enter description",Qt::LineEdit::Normal, 
+            @player.playlist[@player.current_song].description)
+            @player.playlist[@player.current_song].description = description
+        end
       end
     end
   end
