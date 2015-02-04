@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Tue Feb 3 14:07:36 2015
+** Created: Wed Feb 4 22:06:58 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -52,7 +52,7 @@ class Ui_MainWindow
     if mainWindow.objectName.nil?
         mainWindow.objectName = "mainWindow"
     end
-    mainWindow.resize(574, 177)
+    mainWindow.resize(669, 170)
     @sizePolicy = Qt::SizePolicy.new(Qt::SizePolicy::Fixed, Qt::SizePolicy::Fixed)
     @sizePolicy.setHorizontalStretch(0)
     @sizePolicy.setVerticalStretch(0)
@@ -69,7 +69,8 @@ class Ui_MainWindow
     @vertical.objectName = "vertical"
     @horizontalFrame_2 = Qt::Frame.new(@widget)
     @horizontalFrame_2.objectName = "horizontalFrame_2"
-    @horizontalFrame_2.styleSheet = ""
+    @horizontalFrame_2.styleSheet = "background-repeat: repeat-x;\n" \
+"background-image: url(\"%{folder}/resources/%{subfolder}/bg2.png\");"
     @horizontalFrame_2.frameShape = Qt::Frame::Panel
     @horizontalFrame_2.frameShadow = Qt::Frame::Sunken
     @horizontalFrame_2.lineWidth = 3
@@ -258,11 +259,11 @@ class Ui_MainWindow
 "\n" \
 "  QCheckBox::indicator:checked\n" \
 "  {\n" \
-"    image: url(\"%{folder}/resources/shuffle_off.png\");\n" \
+"    image: url(\"%{folder}/resources/%{subfolder}/shuffle_off.png\");\n" \
 "  }\n" \
 "  QCheckBox::indicator:unchecked\n" \
 "  {\n" \
-"    image: url(\"%{folder}/resources/shuffle.png\");\n" \
+"    image: url(\"%{folder}/resources/%{subfolder}/shuffle.png\");\n" \
 "  }"
 
     @horizontalLayout.addWidget(@shuffle)
@@ -276,11 +277,11 @@ class Ui_MainWindow
 "\n" \
 "  QCheckBox::indicator:checked\n" \
 "  {\n" \
-"    image: url(\"%{folder}/resources/mute2.png\");\n" \
+"    image: url(\"%{folder}/resources/%{subfolder}/mute2.png\");\n" \
 "  }\n" \
 "  QCheckBox::indicator:unchecked\n" \
 "  {\n" \
-"    image: url(\"%{folder}/resources/mute1.png\");\n" \
+"    image: url(\"%{folder}/resources/%{subfolder}/mute1.png\");\n" \
 "  }"
 
     @horizontalLayout.addWidget(@mute)
@@ -295,11 +296,11 @@ class Ui_MainWindow
 "\n" \
 "  QCheckBox::indicator:checked\n" \
 "  {\n" \
-"    image: url(\"%{folder}/resources/unrepeat.png\");\n" \
+"    image: url(\"%{folder}/resources/%{subfolder}/unrepeat.png\");\n" \
 "  }\n" \
 "  QCheckBox::indicator:unchecked\n" \
 "  {\n" \
-"    image: url(\"%{folder}/resources/repeat.png\");\n" \
+"    image: url(\"%{folder}/resources/%{subfolder}/repeat.png\");\n" \
 "  }"
 
     @horizontalLayout.addWidget(@repeat)

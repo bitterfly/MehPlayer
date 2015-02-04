@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>574</width>
-    <height>177</height>
+    <width>669</width>
+    <height>170</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,7 +35,8 @@
       <item>
        <widget class="QFrame" name="horizontalFrame_2">
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">background-repeat: repeat-x;
+background-image: url(&quot;%{folder}/resources/%{subfolder}/bg2.png&quot;);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::Panel</enum>
@@ -416,11 +417,11 @@ background: rgb(165, 165, 167)</string>
 
   QCheckBox::indicator:checked
   {
-    image: url(&quot;%{folder}/resources/shuffle_off.png&quot;);
+    image: url(&quot;%{folder}/resources/%{subfolder}/shuffle_off.png&quot;);
   }
   QCheckBox::indicator:unchecked
   {
-    image: url(&quot;%{folder}/resources/shuffle.png&quot;);
+    image: url(&quot;%{folder}/resources/%{subfolder}/shuffle.png&quot;);
   }</string>
            </property>
            <property name="text">
@@ -438,11 +439,11 @@ background: rgb(165, 165, 167)</string>
 
   QCheckBox::indicator:checked
   {
-    image: url(&quot;%{folder}/resources/mute2.png&quot;);
+    image: url(&quot;%{folder}/resources/%{subfolder}/mute2.png&quot;);
   }
   QCheckBox::indicator:unchecked
   {
-    image: url(&quot;%{folder}/resources/mute1.png&quot;);
+    image: url(&quot;%{folder}/resources/%{subfolder}/mute1.png&quot;);
   }</string>
            </property>
            <property name="text">
@@ -466,11 +467,11 @@ background: rgb(165, 165, 167)</string>
 
   QCheckBox::indicator:checked
   {
-    image: url(&quot;%{folder}/resources/unrepeat.png&quot;);
+    image: url(&quot;%{folder}/resources/%{subfolder}/unrepeat.png&quot;);
   }
   QCheckBox::indicator:unchecked
   {
-    image: url(&quot;%{folder}/resources/repeat.png&quot;);
+    image: url(&quot;%{folder}/resources/%{subfolder}/repeat.png&quot;);
   }</string>
            </property>
            <property name="text">

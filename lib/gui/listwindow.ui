@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(163, 190, 135)</string>
+   <string notr="true"/>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -117,8 +117,8 @@ background: rgb(165, 165, 167)</string>
       <item>
        <widget class="QListWidget" name="song_list">
         <property name="styleSheet">
-         <string notr="true">font: 9pt &quot;NanumMyeongjo&quot;;
-background: rgb(204, 255, 223)</string>
+         <string notr="true">font: 9pt &quot;URW Gothic L&quot;;
+background-image: url(&quot;%{folder}/resources/%{subfolder}/bg.png&quot;);</string>
         </property>
        </widget>
       </item>

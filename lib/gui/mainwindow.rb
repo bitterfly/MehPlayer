@@ -31,22 +31,22 @@ module MehPlayer
           @ui.track.text = '(' + @player.playlist[@player.current_song].track.to_s + ')'
         end
 
+        @mute_stylesheet = @ui.mute.styleSheet
+        @shuffle_stylesheet = @ui.shuffle.styleSheet
+        @repeat_stylesheet = @ui.repeat.styleSheet
+        @screen_stylesheet = @ui.horizontalFrame_2.styleSheet
         @list = ListWindow.new(@player, self)
-        load_icons
-        @ui.play_button.icon = @play_icon
-        @ui.stop_button.icon = @stop_icon
-        @ui.open_file.icon = @file_icon
-        @ui.open_folder.icon = @folder_icon
-        @ui.next.icon = @next_icon
-        @ui.prev.icon = @prev_icon
-        @ui.open_playlist.icon = @open_playlist_icon
-        @ui.save_playlist.icon = @save_playlist_icon
-        @ui.show_list.icon = @list_icon
-        @ui.set_description.icon = @description_icon
-        @ui.info.hide
+        @colors = [["gs", "139, 188, 175"],
+                  ["main", "88, 127, 122"], 
+                  ["cats", "190, 232, 204"]]
         @skin = 0
         color
+        set_icons
+        flatten_buttons
+        connect_buttons
+      end
 
+      def connect_buttons
         connect(@ui.show_list, SIGNAL('clicked()'), self, SLOT('show_list()'))
         connect(@ui.open_file, SIGNAL('clicked()'), self, SLOT('open_file()'))
         connect(@ui.open_folder, SIGNAL('clicked()'), self, SLOT('open_folder()'))
@@ -65,32 +65,60 @@ module MehPlayer
         connect(@ui.color, SIGNAL('clicked()'), self, SLOT('color()'))
       end
 
+      def flatten_buttons
+        @ui.show_list.flat = true
+        @ui.open_file.flat = true
+        @ui.open_folder.flat = true
+        @ui.play_button.flat = true
+        @ui.stop_button.flat = true
+        @ui.next.flat = true
+        @ui.prev.flat = true
+        @ui.save_playlist.flat = true
+        @ui.open_playlist.flat = true
+        @ui.set_description.flat = true
+      end
       def color
-        colors = ["88, 127, 122", 
-                  "190, 232, 204",
-                  "175, 198, 132"]
-        @ui.color.styleSheet = "background:rgb(%s)" % colors[(@skin < colors.size - 1) ? (@skin + 1) : 0]
-        @ui.widget.styleSheet = "background:rgb(%s)" % colors[@skin]
-        @ui.horizontalFrame.styleSheet = "background:rgb(%s)" % colors[@skin]
-        @ui.horizontalFrame_2.styleSheet = "background:rgb(%s)" % colors[@skin]
-        @skin = (@skin < colors.size - 1) ? @skin + 1 : 0 
+        @skin = (@skin < @colors.size - 1) ? @skin + 1 : 0 
+        @ui.color.styleSheet = "background:rgb(%s)" % @colors[(@skin < @colors.size - 1) ? (@skin + 1) : 0][1]
+        @ui.widget.styleSheet = "background:rgb(%s)" % @colors[@skin][1]
+        @ui.horizontalFrame.styleSheet = "background:rgb(%s)" % @colors[@skin][1]
+        load_icons(@colors[@skin][0])
+        @list.color(@skin)
+        bright_screen if @player.playing?
       end
 
-      def load_icons
-        @file_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/file.png")
-        @folder_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/folder.png")
-        @play_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/play.png")
-        @pause_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/pause.png")
-        @stop_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/stop.png")
-        @next_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/next.png")
-        @prev_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/prev.png")
-        @list_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/playlist.png")
-        @save_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/save_playlist.png")
-        @open_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/open_playlist.png")
-        @description_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/description.png")
-        @ui.mute.styleSheet %= {folder: File.dirname(__FILE__)}
-        @ui.shuffle.styleSheet %= {folder: File.dirname(__FILE__)}
-        @ui.repeat.styleSheet %= {folder: File.dirname(__FILE__)}
+      def load_icons(folder)
+        @file_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/file.png")
+        @folder_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/folder.png")
+        @play_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/play.png")
+        @pause_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/pause.png")
+        @stop_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/stop.png")
+        @next_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/next.png")
+        @prev_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/prev.png")
+        @list_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/playlist.png")
+        @save_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/save_playlist.png")
+        @open_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/open_playlist.png")
+        @description_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/description.png")
+        @ui.horizontalFrame_2.styleSheet = @screen_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
+        @ui.mute.styleSheet = @mute_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
+        @ui.shuffle.styleSheet = @shuffle_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
+        @ui.repeat.styleSheet = @repeat_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
+        @list.load_icons(folder)
+        set_icons
+      end
+
+      def set_icons
+        @ui.play_button.icon = @play_icon
+        @ui.stop_button.icon = @stop_icon
+        @ui.open_file.icon = @file_icon
+        @ui.open_folder.icon = @folder_icon
+        @ui.next.icon = @next_icon
+        @ui.prev.icon = @prev_icon
+        @ui.open_playlist.icon = @open_playlist_icon
+        @ui.save_playlist.icon = @save_playlist_icon
+        @ui.show_list.icon = @list_icon
+        @ui.set_description.icon = @description_icon
+        @ui.info.hide
       end
 
       def open_file
@@ -133,7 +161,7 @@ module MehPlayer
       end
 
       def dead_screen
-        @ui.horizontalFrame_2.styleSheet = "background:rgb(80, 120, 114)"
+        @ui.horizontalFrame_2.styleSheet = @screen_stylesheet % {folder: File.dirname(__FILE__), subfolder: @colors[@skin][0]}
       end
 
       def play

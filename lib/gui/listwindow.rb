@@ -15,6 +15,7 @@ module MehPlayer
         @player = player
         @ui = Ui_ListWindow.new
         @ui.setupUi(self)
+        @song_list_stylesheet = @ui.song_list.styleSheet
         connect(@ui.song_list, SIGNAL('itemDoubleClicked(QListWidgetItem* )'), self, SLOT('choose_song()'))
         connect(@ui.search, SIGNAL('textChanged(const QString &)'), self, SLOT('search()'))
         connect(@ui.enqueue_file, SIGNAL('clicked()'), self, SLOT('enqueue_file()'))
@@ -23,6 +24,17 @@ module MehPlayer
         connect(@ui.delete_all, SIGNAL('clicked()'), self, SLOT('delete_all()'))
         connect(@ui.sort_by_author, SIGNAL('clicked()'), self, SLOT('sort_by_author()'))
         connect(@ui.sort_by_title, SIGNAL('clicked()'), self, SLOT('sort_by_title()'))
+      end
+
+      def color(index)
+        colors = ["157, 167, 181",
+                  "163, 190, 135",
+                  "163, 190, 135"] 
+        @ui.centralwidget.styleSheet = "background:rgb(%s)" % colors[index]
+      end
+
+      def load_icons(folder)
+        @ui.song_list.styleSheet = @song_list_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
       end
 
       def songs=(playlist)

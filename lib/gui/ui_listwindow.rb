@@ -1,7 +1,7 @@
 =begin
 ** Form generated from reading ui file 'listwindow.ui'
 **
-** Created: Wed Feb 4 16:48:38 2015
+** Created: Wed Feb 4 19:41:43 2015
 **      by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -29,7 +29,7 @@ class Ui_ListWindow
         listWindow.objectName = "listWindow"
     end
     listWindow.resize(434, 521)
-    listWindow.styleSheet = "background: rgb(163, 190, 135)"
+    listWindow.styleSheet = ""
     listWindow.tabShape = Qt::TabWidget::Rounded
     listWindow.dockNestingEnabled = false
     @centralwidget = Qt::Widget.new(listWindow)
@@ -96,8 +96,8 @@ class Ui_ListWindow
 
     @song_list = Qt::ListWidget.new(@centralwidget)
     @song_list.objectName = "song_list"
-    @song_list.styleSheet = "font: 9pt \"NanumMyeongjo\";\n" \
-"background: rgb(204, 255, 223)"
+    @song_list.styleSheet = "font: 9pt \"URW Gothic L\";\n" \
+"background-image: url(\"%{folder}/resources/%{subfolder}/bg.png\");"
 
     @verticalLayout_3.addWidget(@song_list)
 
