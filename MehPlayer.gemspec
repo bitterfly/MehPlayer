@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.name          = 'MehPlayer'
-  s.version       = '0.0.2'
+  s.version       = '0.0.3'
   s.description   = "Music player with skins"
   s.authors       = ["Diana Geneva"]
   s.summary       = "Simple player"

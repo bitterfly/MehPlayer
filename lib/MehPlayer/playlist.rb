@@ -1,4 +1,4 @@
-require 'song'
+require 'MehPlayer/song'
 require 'find'
 
 module MehPlayer

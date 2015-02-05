@@ -1,8 +1,8 @@
-require 'gui/ui_mainwindow.rb'
-require 'gui/listwindow'
-require 'song'
-require 'playlist'
-require 'player'
+require 'MehPlayer/gui/ui_mainwindow.rb'
+require 'MehPlayer/gui/listwindow'
+require 'MehPlayer/song'
+require 'MehPlayer/playlist'
+require 'MehPlayer/player'
 require 'yaml'
 
 module MehPlayer

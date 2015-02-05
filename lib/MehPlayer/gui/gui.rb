@@ -1,5 +1,5 @@
 require 'Qt'
-require 'gui/mainwindow.rb'
+require 'MehPlayer/gui/mainwindow.rb'
 
 module MehPlayer
   module Gui

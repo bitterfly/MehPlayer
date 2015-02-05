@@ -1,5 +1,5 @@
 require 'rubygame'
-require 'playlist'
+require 'MehPlayer/playlist'
 
 module MehPlayer
   class Player

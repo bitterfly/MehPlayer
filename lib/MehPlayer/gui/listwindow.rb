@@ -1,8 +1,8 @@
-require 'gui/ui_listwindow.rb'
-require 'song'
+require 'MehPlayer/gui/ui_listwindow.rb'
+require 'MehPlayer/song'
+require 'MehPlayer/playlist'
+require 'MehPlayer/player'
 require 'Qt'
-require 'playlist'
-require 'player'
 
 module MehPlayer
   module Gui  
