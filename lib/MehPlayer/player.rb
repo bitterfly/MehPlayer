@@ -3,26 +3,30 @@ require 'MehPlayer/playlist'
 
 module MehPlayer
   class Player
-    attr_reader :playlist, :action, :seek
-    attr_accessor :current_song, :shuffle, :repeat
+    attr_reader :action, :seek
+    attr_accessor :playlist, :current_song, :shuffle, :repeat
     def initialize(playlist = Playlist.new, &block)
       @block = block
       @playlist = playlist.songs
       @shuffle = false
       @repeat = false
-      @timer = Thread.new(block) do |block|
+      @timer = Thread.new(block) do |thread_block|
         loop do
-          while action and (action.playing? or action.paused?)
-            sleep(1)
-            @seek += 1 unless paused?
-            block.call if block
-          end
+          timer_while thread_block
           if playing?
             next_song
             start
           end
           sleep(1)
         end
+      end
+    end
+
+    def timer_while(block)
+      while action && (action.playing? || action.paused?)
+        sleep(1)
+        @seek += 1 unless paused?
+        block.call if block
       end
     end
 
@@ -42,22 +46,22 @@ module MehPlayer
     end
 
     def next_song
-      unless shuffle
+      if shuffle
+        @current_song = rand(@playlist.size)
+      else
         if repeat
           @current_song = 0
         else
           @current_song += 1
         end
-      else
-        @current_song = rand(@playlist.size)
       end
     end
 
     def prev_song
-      unless shuffle
-        @current_song -= 1
-      else
+      if shuffle
         @current_song = rand(@playlist.size)
+      else
+        @current_song -= 1
       end
     end
 
@@ -67,10 +71,6 @@ module MehPlayer
 
     def paused?
       @action.paused?
-    end
-
-    def playlist=(playlist)
-      @playlist = playlist
     end
 
     def pause
@@ -84,31 +84,39 @@ module MehPlayer
     def play(index)
       @current_song = index
       start
-      @playing = true  
+      @playing = true
     end
 
     def find_by_description(keywords)
       keywords.map do |keyword|
-        @playlist.select { |song| song.description && (song.description.downcase.split.include? keyword.downcase) }
+        @playlist.select do |song|
+          song.description &&
+            (song.description.downcase.split.include? keyword.downcase)
+        end
       end.inject :&
     end
 
     def find_by_info(keywords)
       keywords.map do |keyword|
-        @playlist.select { |song| song.title and song.artist and (song.title.downcase.split + song.artist.downcase.split).include? keyword.downcase }
+        @playlist.select do |song|
+          song.title &&
+            song.artist && (
+            (
+                song.title.downcase.split + song.artist.downcase.split
+            ).include? keyword.downcase)
+        end
       end.inject :&
     end
 
     private
 
     def start
-      if current_song < playlist.size
-        @action = Rubygame::Music.load(playlist[current_song].filename)
-        @seek = 0
-        action.play
-        @block.call
-      end
-    end
+      return unless current_song < playlist.size
 
+      @action = Rubygame::Music.load(playlist[current_song].filename)
+      @seek = 0
+      action.play
+      @block.call
+    end
   end
 end

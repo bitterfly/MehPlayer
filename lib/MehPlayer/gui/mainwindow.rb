@@ -91,21 +91,55 @@ module MehPlayer
       end
 
       def load_icons(folder)
-        @file_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/file.png")
-        @folder_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/folder.png")
-        @play_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/play.png")
-        @pause_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/pause.png")
-        @stop_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/stop.png")
-        @next_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/next.png")
-        @prev_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/prev.png")
-        @list_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/playlist.png")
-        @save_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/save_playlist.png")
-        @open_playlist_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/open_playlist.png")
-        @description_icon = Qt::Icon.new(File.dirname(__FILE__) + "/resources/" + folder + "/description.png")
-        @ui.horizontalFrame_2.styleSheet = @screen_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
-        @ui.mute.styleSheet = @mute_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
-        @ui.shuffle.styleSheet = @shuffle_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
-        @ui.repeat.styleSheet = @repeat_stylesheet % {folder: File.dirname(__FILE__), subfolder: folder}
+        @file_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/file.png'
+        )
+        @folder_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/folder.png'
+        )
+        @play_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/play.png'
+        )
+        @pause_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/pause.png'
+        )
+        @stop_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/stop.png'
+        )
+        @next_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/next.png'
+        )
+        @prev_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/prev.png'
+        )
+        @list_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/playlist.png'
+        )
+        @save_playlist_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/save_playlist.png'
+        )
+        @open_playlist_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/open_playlist.png'
+        )
+        @description_icon = Qt::Icon.new(
+          File.dirname(__FILE__) + '/resources/' + folder + '/description.png'
+        )
+        @ui.horizontalFrame_2.styleSheet = format(
+          @screen_stylesheet,
+          folder: File.dirname(__FILE__), subfolder: folder
+        )
+        @ui.mute.styleSheet = format(
+          @mute_stylesheet,
+          folder: File.dirname(__FILE__), subfolder: folder
+        )
+        @ui.shuffle.styleSheet = format(
+          @shuffle_stylesheet,
+          folder: File.dirname(__FILE__), subfolder: folder
+        )
+        @ui.repeat.styleSheet = format(
+          @repeat_stylesheet,
+          folder: File.dirname(__FILE__), subfolder: folder
+        )
         @list.load_icons(folder)
         set_icons
       end

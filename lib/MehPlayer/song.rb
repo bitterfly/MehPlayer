@@ -22,7 +22,7 @@ module MehPlayer
 
     def self.audio_file?(filename)
       accepted_formats = %w(.ogg .mp3 .flac .aac .ac3)
-      return false unless File.file?(filename) 
+      return false unless File.file?(filename)
       accepted_formats.include? File.extname(filename)
     end
 
