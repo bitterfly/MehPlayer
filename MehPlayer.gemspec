@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.name          = 'MehPlayer'
   s.version       = '0.0.2'
-  s.description   = "A simple hello world gem"
+  s.description   = "Music player with skins"
   s.authors       = ["Diana Geneva"]
   s.summary       = "Simple player"
   s.email         = 'dageneva@gmail.com'
