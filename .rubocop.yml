@@ -2,10 +2,10 @@ Style/Documentation:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 30
+  Max: 55
 
 Metrics/MethodLength:
-  Max: 20
+  Max: 45
 
 Style/TrivialAccessors:
   AllowPredicates: true
@@ -13,3 +13,4 @@ Style/TrivialAccessors:
 AllCops:
   Exclude:
     - '**/spec_helper.rb'
+    - '**/ui_*.rb'
