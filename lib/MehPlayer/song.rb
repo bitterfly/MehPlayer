@@ -29,5 +29,14 @@ module MehPlayer
     def to_s
       "#{artist} - #{title} (#{album})"
     end
+
+    def ==(other)
+      self.instance_variables.each do |variable|
+        if self.instance_variable_get(variable) != other.instance_variable_get(variable)
+          return false
+        end
+      end
+      true
+    end
   end
 end
