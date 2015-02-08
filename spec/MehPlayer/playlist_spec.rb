@@ -5,26 +5,26 @@ require 'MehPlayer/song'
 
 module MehPlayer
   describe Playlist do
-    subject{Playlist}
-   
+    subject { Playlist }
+
     let(:first_file)do
-      File.dirname(__FILE__) + "/../fixtures/spam.mp3"
+      File.dirname(__FILE__) + '/../fixtures/spam.mp3'
     end
 
     let(:second_file)do
-      File.dirname(__FILE__) + "/../fixtures/Terminal Frost.mp3"
+      File.dirname(__FILE__) + '/../fixtures/Terminal Frost.mp3'
     end
 
     let(:first_song)do
       Song.new(first_file)
     end
-    
+
     let(:second_song)do
       Song.new(second_file)
     end
 
     let(:folder)do
-      File.dirname(__FILE__) + "/../fixtures"
+      File.dirname(__FILE__) + '/../fixtures'
     end
 
     describe '#initialize' do
@@ -69,16 +69,19 @@ module MehPlayer
     describe '.album' do
       it 'returns array with all the songs in a given album' do
         playlist = subject.new([first_song, second_song])
-        expect(playlist.album("Monty Python", "Monty Python Sings")).to eq(["Monty Python Sings", [first_song]])
+        expect(
+          playlist.album('Monty Python', 'Monty Python Sings')
+          ).to eq(['Monty Python Sings', [first_song]])
       end
     end
 
     describe '.artist' do
       it 'returns hash of album and their contents' do
         playlist = subject.new([first_song, second_song])
-        expect(playlist.artist("Monty Python")).to eq({"Monty Python Sings" => [first_song]})
+        expect(
+          playlist.artist('Monty Python')
+          ).to eq('Monty Python Sings' => [first_song])
       end
     end
-
   end
 end
