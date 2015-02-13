@@ -298,7 +298,7 @@ module MehPlayer
             @player.play(@player.current_song)
             mute
           else
-            if @player.shuffle
+            if @player.repeat
               @player.play(0)
             else
               @player.play(@player.playlist.size - 1)

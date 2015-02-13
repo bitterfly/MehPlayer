@@ -18,6 +18,7 @@ module MehPlayer
     end
 
     def scan_folder(folder_name)
+      return unless File.directory? folder_name
       Find.find(folder_name) do |file|
         add_song(file) if Song.audio_file? file
       end

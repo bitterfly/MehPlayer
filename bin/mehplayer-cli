@@ -12,32 +12,78 @@ module MehPlayer
     def initialize 
       @player = Player.new
       @playlist = Playlist.new
-      @commands = {"/h" => "help", "/s" => "add_song", "/p" => "play_pause", "/m" => "mute" }
+      @commands = {'/h' => 'help', '/a' => 'add', '/o' => 'open',
+                   '/x' => 'stop', '/p' => 'play_pause', '/m' => 'mute',
+                   '/d' => 'description', '/ls' => 'print_playlist',
+                   '<' => 'previous', '>' => 'next', '/s' => 'shuffle',
+                   '/r' => 'repeat', '/i' => 'info', '+' => 'volume_up',
+                   '-' => 'volume_down', '/f' => 'find', 'exit' => ""}
       @volume = 0.7
     end
     
     def run
       loop do
-        command = gets.chomp
-        break if command == "exit"
-        send(commands[command])
+        command = ""
+        until @commands.has_key?(command) do
+        print '✓ '
+          command, args = gets.chomp.split
+        end
+        break if command == 'exit'
+        if args
+          send(commands[command], args)
+        else
+          send(commands[command])
+        end
       end
     end
 
     def help
-      puts :gs
+      commands.each do |command, description|
+        puts command + ' - ' + description
+      end
     end
 
-    def add_song
-      print "Enter filename: "
-      song = gets.chomp
-      @playlist.add_song(song) 
-      @player = Player.new(playlist)
+    def add(arg)
+      if (arg == '-s')
+        print 'Enter filename: '
+        song = gets.chomp
+        @playlist = new Player(Song.new(song)) 
+        @player.playlist += playlist.songs
+      else
+        print 'Enter path: '
+        folder = gets.chomp
+        @playlist = Playlist.new
+        @playlist.scan_folder(folder) 
+        @player.playlist += playlist.songs
+      end
     end
 
-    def play_pause
-      puts player.playlist
-      if player.playing?
+    def open(arg)
+      stop if @player.playing?
+      if (arg == '-s')
+        print 'Enter filename: '
+        song = gets.chomp
+        @playlist = Playlist.new([Song.new(song)])
+        @player.playlist = @playlist.songs
+      else
+        print 'Enter path: '
+        folder = gets.chomp
+        stop if @player.playing?
+        @playlist = Playlist.new
+        @playlist.scan_folder(folder)
+        @player.playlist = @playlist.songs
+      end
+    end
+
+    def play_pause(args = nil)
+      if args
+        if args.to_i >= 0 && args.to_i < player.playlist.size
+          player.play(args.to_i)
+        else
+          stop
+        end
+      else
+        if player.playing?
           if player.paused?
             player.unpause
           else
@@ -45,6 +91,21 @@ module MehPlayer
           end
         else
           player.play(0) unless player.playlist.empty?
+        end
+      end
+    end
+
+    def stop
+      @player.stop
+    end
+
+    def print_playlist(args)
+      (('1'..'9').to_a + ('a'..'z').to_a).each do |symbol|
+        puts symbol.upcase
+        player.playlist.each do |song|
+          puts song if(song.artist[0].downcase == symbol) if args == 'a'
+          puts song if(song.title[0].downcase == symbol) if args == 's'
+        end
       end
     end
 
@@ -56,6 +117,85 @@ module MehPlayer
         player.action.volume = 0
       end
     end
+
+    def next
+        if @player.playlist.empty?
+          stop
+        else
+          @player.next_song
+          if @player.current_song <= @player.playlist.size
+            @player.play(@player.current_song)
+          else
+            if @player.repeat
+              @player.play(0)
+            else
+              @player.play(@player.playlist.size - 1)
+            end
+          end
+        end
+      end
+
+      def previous
+        return if @player.playlist.empty?
+        @player.prev_song
+        if @player.current_song >= 0
+          @player.play(@player.current_song)
+          mute
+        else
+          @player.play(0)
+        end
+      end
+
+      def shuffle
+        @player.shuffle = (!@player.shuffle)
+      end
+
+      def repeat
+        @player.repeat = (!@player.repeat)
+      end
+
+      def info
+        if @player.playing?
+          puts '**paused**' if @player.paused?
+          puts @player.playlist[@player.current_song]
+          puts 'volume: ' + (@volume * 10).to_s
+          if @player.playlist[@player.current_song].description
+            puts @player.playlist[@player.current_song].description 
+          end
+        else
+          puts '**stopped**'
+          puts 'Empty playlist' if @player.playlist.empty?
+        end
+      end
+
+      def volume_up(number)
+        @volume += number.to_i / 10.0
+        @volume = 1 if volume > 1
+        @player.action.volume += number.to_i / 10.0
+      end
+
+      def volume_down(number)
+        @volume -= number.to_i / 10.0
+        @volume = 0 if @volume < 0
+        @player.action.volume -= number.to_i / 10.0
+      end
+
+      def description
+        return if @player.playlist.empty?
+        description = gets.chomp
+        @player.playlist[@player.current_song].description = description
+      end
+
+      def find
+        keywords = gets.chomp.split
+        songs =
+          (@player.find_by_description(keywords) |
+          @player.find_by_info(keywords)) ||
+          @player.playlist
+        songs.each do |song|
+          puts @player.playlist.index(song).to_s + ': ' + song.to_s
+        end 
+      end
   end
 end
 
