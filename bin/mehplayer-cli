@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+require 'MehPlayer/song'
+require 'MehPlayer/playlist'
+require 'MehPlayer/player'
+require 'yaml'
+
+module MehPlayer
+  class Cli
+    attr_reader :commands, :volume
+    attr_accessor :player, :playlist
+    def initialize 
+      @player = Player.new
+      @playlist = Playlist.new
+      @commands = {"/h" => "help", "/s" => "add_song", "/p" => "play_pause", "/m" => "mute" }
+      @volume = 0.7
+    end
+    
+    def run
+      loop do
+        command = gets.chomp
+        break if command == "exit"
+        send(commands[command])
+      end
+    end
+
+    def help
+      puts :gs
+    end
+
+    def add_song
+      print "Enter filename: "
+      song = gets.chomp
+      @playlist.add_song(song) 
+      @player = Player.new(playlist)
+    end
+
+    def play_pause
+      puts player.playlist
+      if player.playing?
+          if player.paused?
+            player.unpause
+          else
+            player.pause
+          end
+        else
+          player.play(0) unless player.playlist.empty?
+      end
+    end
+
+    def mute
+      return unless player.playing?
+      if player.action.volume == 0
+        player.action.volume = @volume
+      else
+        player.action.volume = 0
+      end
+    end
+  end
+end
+
+MehPlayer::Cli.new.run

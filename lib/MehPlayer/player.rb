@@ -116,7 +116,7 @@ module MehPlayer
       @action = Rubygame::Music.load(playlist[current_song].filename)
       @seek = 0
       action.play
-      @block.call
+      @block.call if @block
     end
   end
 end
