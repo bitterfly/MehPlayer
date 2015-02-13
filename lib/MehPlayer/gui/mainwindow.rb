@@ -3,7 +3,6 @@ require 'MehPlayer/gui/listwindow'
 require 'MehPlayer/song'
 require 'MehPlayer/playlist'
 require 'MehPlayer/player'
-require 'yaml'
 
 module MehPlayer
   module Gui
@@ -42,8 +41,8 @@ module MehPlayer
                           @player.playlist.songs[@player.current_song]
                           .rate.to_s + '★-'
         @ui.track.text = '(' +
-                         @player.playlist.songs[@player.current_song]
-                         .track.to_s + ')'
+          @player.playlist.songs[@player.current_song]
+            .track.to_s + ')'
         @ui.rate.value = @player.playlist.songs[@player.current_song].rate
       end
 

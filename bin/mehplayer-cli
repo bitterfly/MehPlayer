@@ -16,7 +16,7 @@ module MehPlayer
                     '/s' => 'shuffle', '/r' => 'repeat', '/i' => 'info',
                     '+' => 'volume_up', '-' => 'volume_down', '/f' => 'find',
                     '/d' => 'description', '/ls' => 'print_playlist',
-                    'exit' => '' }
+                    '/w' => 'save', '/l' => 'load', 'exit' => '' }
       @volume = 0.7
     end
 
@@ -44,7 +44,7 @@ module MehPlayer
         '/p [index] - play/pause or plays playlist[index] song',
         '/s - stop', '/m - mute', '< - plays previous song',
         '> - play next song', '/s - shuffle mode',
-        '/r - repeat mode', 
+        '/r - repeat mode',
         '>> NUMBER - skips to given percentage',
         '/i - shows song info (title, artist, volume, description)',
         '+ NUMBER - increases volume to number (0 - 10)',
@@ -188,7 +188,7 @@ module MehPlayer
     end
 
     def description(argument_string)
-      return if @player.playlist.songs.empty? || (not @player.playing?)
+      return if @player.playlist.songs.empty? || (! @player.playing?)
       description = argument_string
       @player.playlist.songs[@player.current_song].description += description
     end
@@ -225,12 +225,20 @@ module MehPlayer
 
     def print_hash(hash)
       hash.each do |key, value|
-        unless value.empty?
-          puts
-          puts '*** ' + key.upcase + ' ***'
-          value.each { |element| puts element }
-        end
+        next if value.empty?
+        puts
+        puts '*** ' + key.upcase + ' ***'
+        value.each { |element| puts element }
       end
+    end
+
+    def save(argument_string)
+      @player.playlist.save(argument_string)
+    end
+
+    def load(argument_string)
+      stop if @player.playing?
+      @player.playlist.open(argument_string)
     end
   end
 end
