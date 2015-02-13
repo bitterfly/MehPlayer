@@ -9,7 +9,7 @@ module MehPlayer
   module Gui
     class MainWindow < Qt::MainWindow
       slots 'open_file()', 'open_folder()', 'play()', 'stop()', 'seek()',
-            'color()', 'volume()', 'mute()', 'next()', 'prev()', 'shuffle()',
+            'set_current_skin()', 'volume()', 'mute()', 'next()', 'prev()', 'shuffle()',
             'show_list()', 'save_playlist()', 'open_playlist()', 'rate()',
             'repeat()', 'set_description()'
 
@@ -18,33 +18,33 @@ module MehPlayer
         @ui = Ui_MainWindow.new
         @ui.setupUi(self)
         @player = Player.new do
-          if @ui.mute.checked?
-            mute
-            set_current_song_preferences
-          else
-            @ui.slider.maximum = @player.playlist[@player.current_song].length
-            @ui.slider.value = @player.seek
-            @ui.artist.text = @player.playlist[@player.current_song].artist
-            @ui.title.text = @player.playlist[@player.current_song].title
-            @ui.album.text = @player.playlist[@player.current_song].album
-            @ui.rating.text = '-' +
-                              @player.playlist[@player.current_song]
-                              .rate.to_s + '★-'
-            @ui.track.text = '(' +
-                             @player.playlist[@player.current_song]
-                             .track.to_s + ')'
-            @ui.rate.value = @player.playlist[@player.current_song].rate
-          end
+          mute
+          set_current_song_preferences
         end
         set_style_sheets
         @list = ListWindow.new(@player, self)
-        set_skin_colors
-        color
+        initialize_skin_colors
+        set_current_skin
         set_icons
         flatten_buttons
         connect_play_open
         connect_volume_progress
         connect_specials
+      end
+
+      def set_current_song_preferences
+        @ui.slider.maximum = @player.playlist.songs[@player.current_song].length
+        @ui.slider.value = @player.seek
+        @ui.artist.text = @player.playlist.songs[@player.current_song].artist
+        @ui.title.text = @player.playlist.songs[@player.current_song].title
+        @ui.album.text = @player.playlist.songs[@player.current_song].album
+        @ui.rating.text = '-' +
+                          @player.playlist.songs[@player.current_song]
+                          .rate.to_s + '★-'
+        @ui.track.text = '(' +
+                         @player.playlist.songs[@player.current_song]
+                         .track.to_s + ')'
+        @ui.rate.value = @player.playlist.songs[@player.current_song].rate
       end
 
       def set_style_sheets
@@ -81,7 +81,7 @@ module MehPlayer
 
       def connect_specials
         connect(@ui.rate, SIGNAL('valueChanged(int)'), SLOT('rate()'))
-        connect(@ui.color, SIGNAL('clicked()'), self, SLOT('color()'))
+        connect(@ui.color, SIGNAL('clicked()'), self, SLOT('set_current_skin()'))
         connect(
           @ui.shuffle, SIGNAL('stateChanged(int)'), self, SLOT('shuffle()')
         )
@@ -106,14 +106,14 @@ module MehPlayer
         @ui.set_description.flat = true
       end
 
-      def set_skin_colors
+      def initialize_skin_colors
         @colors = [['sky', '139, 188, 175'],
                    ['main', '88, 127, 122'],
                    ['mellon', '255, 146, 149']]
         @skin = 0
       end
 
-      def color
+      def set_current_skin
         @skin = (@skin < @colors.size - 1) ? @skin + 1 : 0
         @ui.color.styleSheet = format(
           'background:rgb(%s)',
@@ -200,9 +200,9 @@ module MehPlayer
         file_name = Qt::FileDialog.getOpenFileName(self)
         return if file_name.nil? || !Song.audio_file?(file_name)
         stop if @player.playing?
-        @playlist = Playlist.new([Song.new(fileame)])
-        @player.playlist = @playlist.songs
-        @list.songs = @player.playlist
+        @player.playlist.clear
+        @player.playlist.add_song(file_name)
+        @list.songs = @player.playlist.songs
         @ui.info.hide
         play_mode
       end
@@ -211,10 +211,9 @@ module MehPlayer
         folder_name = Qt::FileDialog.getExistingDirectory(self)
         return if folder_name.nil?
         stop if @player.playing?
-        @playlist = Playlist.new
-        @playlist.scan_folder(folder_name)
-        @player.playlist = @playlist.songs
-        @list.songs = @player.playlist
+        @player.playlist.clear
+        @player.playlist.scan_folder(folder_name)
+        @list.songs = @player.playlist.songs
         @ui.info.hide
         play_mode
       end
@@ -230,6 +229,7 @@ module MehPlayer
       def bright_screen
         @ui.horizontalFrame_2.styleSheet = 'background: rgb(255, 250, 255)'
         @ui.info.show
+        @ui.rate.enabled = true
         pause_mode
       end
 
@@ -238,6 +238,7 @@ module MehPlayer
           @screen_stylesheet,
           folder: File.dirname(__FILE__), subfolder: @colors[@skin][0]
         )
+        @ui.rate.enabled = false
       end
 
       def play
@@ -250,7 +251,7 @@ module MehPlayer
             @player.pause
           end
         else
-          unless @player.playlist.empty?
+          unless @player.playlist.songs.empty?
             bright_screen
             @player.play(0)
           end
@@ -266,7 +267,7 @@ module MehPlayer
       end
 
       def seek
-        @player.seek = @ui.slider.value unless @player.playlist.empty?
+        @player.seek = @ui.slider.value unless @player.playlist.songs.empty?
       end
 
       def volume
@@ -290,25 +291,25 @@ module MehPlayer
       end
 
       def next
-        if @player.playlist.empty?
+        if @player.playlist.songs.empty?
           stop
         else
           @player.next_song
-          if @player.current_song <= @player.playlist.size
+          if @player.current_song <= @player.playlist.songs.size
             @player.play(@player.current_song)
             mute
           else
             if @player.repeat
               @player.play(0)
             else
-              @player.play(@player.playlist.size - 1)
+              @player.play(@player.playlist.songs.size - 1)
             end
           end
         end
       end
 
       def prev
-        return if @player.playlist.empty?
+        return if @player.playlist.songs.empty?
         @player.prev_song
         if @player.current_song >= 0
           @player.play(@player.current_song)
@@ -333,7 +334,8 @@ module MehPlayer
       def save_playlist
         return unless @player.playlist
         file_name = Qt::FileDialog.getSaveFileName(self)
-        File.write(file_name, @player.playlist.to_yaml)
+        return if file_name.nil?
+        @player.playlist.save(file_name)
       end
 
       def open_playlist
@@ -341,26 +343,21 @@ module MehPlayer
         return if file_name.nil?
         stop if @player.playing?
         dead_screen
-        @player.playlist = YAML.load(File.read(file_name))
-        @list.songs = @player.playlist
+        @player.playlist.open(file_name)
+        @list.songs = @player.playlist.songs
       end
 
       def set_description
-        return if @player.playlist.empty?
+        return if @player.playlist.songs.empty?
         description = Qt::InputDialog.getText(
-          self, @player.playlist[@player.current_song].title,
+          self, @player.playlist.songs[@player.current_song].title,
           'Enter description', Qt::LineEdit::Normal,
-          @player.playlist[@player.current_song].description)
-        @player.playlist[@player.current_song].description = description
+          @player.playlist.songs[@player.current_song].description)
+        @player.playlist.songs[@player.current_song].description = description
       end
 
       def rate
-        if @player.playing?
-          @ui.rate.enabled = true
-          @player.playlist[@player.current_song].rate = @ui.rate.value
-        else
-          @ui.rate.enabled = false
-        end
+        @player.playlist.songs[@player.current_song].rate = @ui.rate.value
       end
     end
   end

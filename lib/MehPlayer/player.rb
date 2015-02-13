@@ -7,7 +7,7 @@ module MehPlayer
     attr_accessor :playlist, :current_song, :shuffle, :repeat
     def initialize(playlist = Playlist.new, &block)
       @block = block
-      @playlist = playlist.songs
+      @playlist = playlist
       @shuffle = false
       @repeat = false
       @timer = Thread.new(block) do |thread_block|
@@ -30,10 +30,6 @@ module MehPlayer
       end
     end
 
-    def join_timer
-      @timer.join
-    end
-
     def seek=(progress)
       action.jump_to(progress)
       @seek = progress
@@ -47,7 +43,7 @@ module MehPlayer
 
     def next_song
       if shuffle
-        @current_song = rand(@playlist.size)
+        @current_song = rand(@playlist.songs.size)
       else
         if repeat
           @current_song = 0
@@ -59,7 +55,7 @@ module MehPlayer
 
     def prev_song
       if shuffle
-        @current_song = rand(@playlist.size)
+        @current_song = rand(@playlist.songs.size)
       else
         @current_song -= 1
       end
@@ -87,33 +83,11 @@ module MehPlayer
       @playing = true
     end
 
-    def find_by_description(keywords)
-      keywords.map do |keyword|
-        @playlist.select do |song|
-          song.description &&
-            (song.description.downcase.split.include? keyword.downcase)
-        end
-      end.inject :&
-    end
-
-    def find_by_info(keywords)
-      keywords.map do |keyword|
-        @playlist.select do |song|
-          song.title &&
-            song.artist && (
-            (
-                song.title.downcase.split + song.artist.downcase.split
-            ).include? keyword.downcase)
-        end
-      end.inject :&
-    end
-
     private
 
     def start
-      return unless current_song < playlist.size
-
-      @action = Rubygame::Music.load(playlist[current_song].filename)
+      return if current_song >= playlist.songs.size
+      @action = Rubygame::Music.load(playlist.songs[current_song].filename)
       @seek = 0
       action.play
       @block.call if @block

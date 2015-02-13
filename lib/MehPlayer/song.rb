@@ -11,11 +11,14 @@ module MehPlayer
         unless fileref.null?
           tag = fileref.tag
           @title = tag.title
+          @title = ' ' if tag.title.nil?
           @artist = tag.artist
+          @artist = ' ' if tag.artist.nil?
           @album = tag.album
           @length = fileref.audio_properties.length
           @track = tag.track
           @rate = 1
+          @description = ''
         end
       end
     end

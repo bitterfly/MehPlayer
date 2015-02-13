@@ -10,6 +10,14 @@ module MehPlayer
       File.dirname(__FILE__) + '/../fixtures/spam.mp3'
     end
 
+    let(:second_sample)do
+      File.dirname(__FILE__) + '/../fixtures/Terminal Frost.mp3'
+    end
+
+    after :each do
+      FakeFS::FileSystem.clear
+    end
+
     it 'reads correctly song`s duration' do
       song = subject.new(sample_song)
       expect(song.length).to eq(33)
@@ -47,7 +55,7 @@ module MehPlayer
 
     it 'reads correctly song`s description' do
       song = subject.new(sample_song)
-      expect(song.description).to be_nil
+      expect(song.description).to eq('')
     end
 
     describe '.audio_file?' do
@@ -92,6 +100,18 @@ module MehPlayer
         expect(
           song.to_s
           ).to eq('Monty Python - Spam Song (Monty Python Sings)')
+      end
+    end
+
+    describe '#==' do
+      it 'returns true if two songs are equal' do
+        song = subject.new(sample_song)
+        expect(song == song.dup).to be_truthy
+      end
+      it 'returns false if two songs are not equal' do
+        first_song = subject.new(sample_song)
+        second_song = subject.new(second_sample)
+        expect(first_song == second_song).to be_falsey
       end
     end
   end

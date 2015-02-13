@@ -8,16 +8,15 @@ require 'yaml'
 module MehPlayer
   class Cli
     attr_reader :commands, :volume
-    attr_accessor :player, :playlist
     def initialize
       @player = Player.new
-      @playlist = Playlist.new
       @commands = { '/h' => 'help', '/a' => 'add', '/o' => 'open',
-                    '/x' => 'stop', '/p' => 'play_pause', '/m' => 'mute',
+                    '/p' => 'play_pause', '/x' => 'stop', '/m' => 'mute',
+                    '<' => 'previous', '>' => 'next', '>>' => 'fast_forward',
+                    '/s' => 'shuffle', '/r' => 'repeat', '/i' => 'info',
+                    '+' => 'volume_up', '-' => 'volume_down', '/f' => 'find',
                     '/d' => 'description', '/ls' => 'print_playlist',
-                    '<' => 'previous', '>' => 'next', '/s' => 'shuffle',
-                    '/r' => 'repeat', '/i' => 'info', '+' => 'volume_up',
-                    '-' => 'volume_down', '/f' => 'find', 'exit' => '' }
+                    'exit' => '' }
       @volume = 0.7
     end
 
@@ -38,20 +37,33 @@ module MehPlayer
     end
 
     def help
-      commands.each do |command, description|
-        puts command + ' - ' + description
-      end
+      descriptions = [
+        '/h - shows this message',
+        '/a PATH - enqueues file or directory',
+        '/o PATH - opens new file or directory',
+        '/p [index] - play/pause or plays playlist[index] song',
+        '/s - stop', '/m - mute', '< - plays previous song',
+        '> - play next song', '/s - shuffle mode',
+        '/r - repeat mode', 
+        '>> NUMBER - skips to given percentage',
+        '/i - shows song info (title, artist, volume, description)',
+        '+ NUMBER - increases volume to number (0 - 10)',
+        '- NUMBER - decreases volume to number (0 - 10)',
+        '/f DESCRIPTION - shows songs matching the description',
+        '/d DESCRIPTION - sets current_song`s description',
+        '/ls [-a, -s] - shows songs sorted by artist(-a) song (-s)',
+        'exit - exits'
+      ]
+      descriptions.each { |description| puts description }
     end
 
     def add(argument_string)
       path = argument_string
       if File.file? argument_string
-        @playlist = new Player(Song.new(path))
-        @player.playlist += playlist.songs
+        return unless Song.audio_file?(path)
+        @player.playlist.add_song(path)
       else
-        @playlist = Playlist.new
-        @playlist.scan_folder(path)
-        @player.playlist += playlist.songs
+        @player.playlist.scan_folder(path)
       end
     end
 
@@ -59,29 +71,11 @@ module MehPlayer
       stop if @player.playing?
       path = argument_string
       if File.file? path
-        @playlist = Playlist.new([Song.new(path)])
-        @player.playlist = @playlist.songs
+        @player.playlist.clear
+        @player.playlist.add_song(path)
       else
-        @playlist = Playlist.new
-        @playlist.scan_folder(path)
-        @player.playlist = @playlist.songs
-      end
-    end
-
-    def play_number(number)
-      if number.to_i >= 0 &&
-         number.to_i < player.playlist.size
-        player.play(number.to_i)
-      else
-        stop
-      end
-    end
-
-    def pause_unpause
-      if player.paused?
-        player.unpause
-      else
-        player.pause
+        @player.playlist.clear
+        @player.playlist.scan_folder(path)
       end
     end
 
@@ -89,11 +83,28 @@ module MehPlayer
       if argument_string
         play_number(argument_string)
       else
-        if player.playing?
+        if @player.playing?
           pause_unpause
         else
-          player.play(0) unless player.playlist.empty?
+          @player.play(0) unless @player.playlist.songs.empty?
         end
+      end
+    end
+
+    def pause_unpause
+      if @player.paused?
+        @player.unpause
+      else
+        @player.pause
+      end
+    end
+
+    def play_number(number)
+      if number.to_i >= 0 &&
+         number.to_i < @player.playlist.songs.size
+        @player.play(number.to_i)
+      else
+        stop
       end
     end
 
@@ -101,55 +112,45 @@ module MehPlayer
       @player.stop
     end
 
-    def print_playlist(argument_string)
-      (('1'..'9').to_a + ('a'..'z').to_a).each do |symbol|
-        puts symbol.upcase
-        player.playlist.each do |song|
-          if argument_string == 'a'
-            puts song if song.artist[0].downcase == symbol
-          end
-          if argument_string == 's'
-            puts song if song.title[0].downcase == symbol
-          end
-        end
+    def mute
+      return unless @player.playing?
+      if @player.action.volume == 0
+        @player.action.volume = @volume
+      else
+        @player.action.volume = 0
       end
     end
 
-    def mute
-      return unless player.playing?
-      if player.action.volume == 0
-        player.action.volume = @volume
+    def previous
+      return if @player.playlist.songs.empty?
+      @player.prev_song
+      if @player.current_song >= 0
+        @player.play(@player.current_song)
       else
-        player.action.volume = 0
+        @player.play(0)
       end
     end
 
     def next
-      if @player.playlist.empty?
+      if @player.playlist.songs.empty?
         stop
       else
         @player.next_song
-        if @player.current_song <= @player.playlist.size
+        if @player.current_song <= @player.playlist.songs.size
           @player.play(@player.current_song)
         else
           if @player.repeat
             @player.play(0)
           else
-            @player.play(@player.playlist.size - 1)
+            @player.play(@player.playlist.songs.size - 1)
           end
         end
       end
     end
 
-    def previous
-      return if @player.playlist.empty?
-      @player.prev_song
-      if @player.current_song >= 0
-        @player.play(@player.current_song)
-        mute
-      else
-        @player.play(0)
-      end
+    def fast_forward(argument_string)
+      @player.seek = ((argument_string.to_i) / 100.0)\
+        * @player.playlist.songs[@player.current_song].length
     end
 
     def shuffle
@@ -163,14 +164,14 @@ module MehPlayer
     def info
       if @player.playing?
         puts '**paused**' if @player.paused?
-        puts @player.playlist[@player.current_song]
+        puts @player.playlist.songs[@player.current_song]
         puts 'volume: ' + (@volume * 10).to_s
-        if @player.playlist[@player.current_song].description
-          puts @player.playlist[@player.current_song].description
+        if @player.playlist.songs[@player.current_song].description
+          puts @player.playlist.songs[@player.current_song].description
         end
       else
         puts '**stopped**'
-        puts 'Empty playlist' if @player.playlist.empty?
+        puts 'Empty playlist' if @player.playlist.songs.empty?
       end
     end
 
@@ -187,19 +188,48 @@ module MehPlayer
     end
 
     def description(argument_string)
-      return if @player.playlist.empty?
+      return if @player.playlist.songs.empty? || (not @player.playing?)
       description = argument_string
-      @player.playlist[@player.current_song].description = description
+      @player.playlist.songs[@player.current_song].description += description
     end
 
     def find(argument_string)
       keywords = argument_string.split
       songs =
-        (@player.find_by_description(keywords) |
-        @player.find_by_info(keywords)) ||
-        @player.playlist
+        (@player.playlist.find_by_description(keywords) |
+        @player.playlist.find_by_info(keywords)) ||
+        @player.playlist.songs
       songs.each do |song|
-        puts @player.playlist.index(song).to_s + ': ' + song.to_s
+        puts @player.playlist.songs.index(song).to_s + ': ' + song.to_s
+      end
+    end
+
+    def print_playlist(argument_string = nil)
+      choice = argument_string[1..-1] if argument_string
+      return if @player.playlist.songs.empty?
+      songs = []
+      alphabetical = {}
+      ([' '] + ('1'..'9').to_a + ('a'..'z').to_a).each do |symbol|
+        @player.playlist.songs.each do |song|
+          if choice == 's'
+            songs += [song.to_s] if song.title[0].downcase == symbol
+          else
+            songs += [song.to_s] if song.artist[0].downcase == symbol
+          end
+        end
+        alphabetical[symbol] = songs
+        songs = []
+      end
+      print_hash alphabetical
+    end
+
+    def print_hash(hash)
+      hash.each do |key, value|
+        unless value.empty?
+          puts
+          puts '*** ' + key.upcase + ' ***'
+          value.each { |element| puts element }
+        end
       end
     end
   end

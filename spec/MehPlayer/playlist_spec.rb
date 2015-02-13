@@ -27,6 +27,10 @@ module MehPlayer
       File.dirname(__FILE__) + '/../fixtures'
     end
 
+    after :each do
+      FakeFS::FileSystem.clear
+    end
+
     describe '#initialize' do
       context 'withot files' do
         it 'creates an empty song, when list`s not given' do
@@ -66,21 +70,61 @@ module MehPlayer
       end
     end
 
-    describe '.album' do
-      it 'returns array with all the songs in a given album' do
+    describe '.find_by_description' do
+      it 'finds song by user`s descriprion' do
         playlist = subject.new([first_song, second_song])
+        playlist.songs[0].description = 'Best song ever'
         expect(
-          playlist.album('Monty Python', 'Monty Python Sings')
-          ).to eq(['Monty Python Sings', [first_song]])
+          playlist.find_by_description(['Best', 'song', 'ever'])
+          ).to eq([first_song])
       end
     end
 
-    describe '.artist' do
-      it 'returns hash of album and their contents' do
+    describe '.find_by_info' do
+      it 'finds song by its title' do
         playlist = subject.new([first_song, second_song])
-        expect(
-          playlist.artist('Monty Python')
-          ).to eq('Monty Python Sings' => [first_song])
+        expect(playlist.find_by_info(['spam', 'song'])).to eq([first_song])
+      end
+
+      it 'finds song by matching at least one of its title`s words' do
+        playlist = subject.new([first_song, second_song])
+        expect(playlist.find_by_info(['spam'])).to eq([first_song])
+      end
+
+      it 'finds song by artist' do
+        playlist = subject.new([first_song, second_song])
+        expect(playlist.find_by_info(['python'])).to eq([first_song])
+      end
+
+      it 'is case insensitive' do
+        playlist = subject.new([first_song, second_song])
+        expect(playlist.find_by_info(['SpAm'])).to eq([first_song])
+      end
+
+      it 'returns empty array if there isn`t a match' do
+        playlist = subject.new([first_song, second_song])
+        expect(playlist.find_by_info(['maps', 'gnos'])).to eq([])
+      end
+    end
+
+    describe '.save' do
+      it 'saves songs to yaml' do
+        playlist = subject.new([first_song, second_song])
+        FakeFS do
+          playlist.save("foo.bar")
+          expect(YAML.load(File.read("foo.bar"))).to eq(playlist.songs)
+        end
+      end
+    end
+
+    describe '.open' do
+      it 'opens songs from yaml' do
+        playlist = subject.new
+        FakeFS do
+          File.write("foo.bar", ([first_song, second_song]).to_yaml)
+          playlist.open("foo.bar")
+          expect(playlist.songs).to eq([first_song, second_song])
+        end
       end
     end
   end

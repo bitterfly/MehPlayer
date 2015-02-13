@@ -1,5 +1,6 @@
 require 'MehPlayer/song'
 require 'find'
+require 'yaml'
 
 module MehPlayer
   class Playlist
@@ -24,34 +25,38 @@ module MehPlayer
       end
     end
 
-    def album(artist_name, album_name)
-      songs = @songs.select do |song|
-        song.artist == artist_name && song.album == album_name
-      end
-      [album_name, songs]
-    end
-
     def list_contains_pair(list, pair)
       list.each { |element| return true if element.first == pair.first }
       false
     end
 
-    def artist(artist_name)
-      songs = @songs.select { |song| song.artist == artist_name }
-      albums = []
-      songs.each do |song|
-        unless list_contains_pair(albums, album(artist_name, song.album))
-          albums << album(artist_name, song.album)
+    def find_by_description(keywords)
+      keywords.map do |keyword|
+        @songs.select do |song|
+          song.description &&
+            (song.description.downcase.split.include? keyword.downcase)
         end
-      end
-      albums.to_h
+      end.inject :&
     end
 
-    def print(albums)
-      albums.each do |album, songs|
-        puts "******#{album}******\n"
-        songs.each { |song| puts song }
-      end
+    def find_by_info(keywords)
+      keywords.map do |keyword|
+        @songs.select do |song|
+          song.title &&
+            song.artist && (
+            (
+                song.title.downcase.split + song.artist.downcase.split
+            ).include? keyword.downcase)
+        end
+      end.inject :&
+    end
+
+    def save(filename)
+      File.write(filename, @songs.to_yaml)
+    end
+
+    def open(filename)
+      @songs = YAML.load(File.read(filename))
     end
   end
 end

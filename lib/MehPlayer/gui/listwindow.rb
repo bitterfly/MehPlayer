@@ -101,7 +101,7 @@ module MehPlayer
         playlist.each_with_index do |song, _index|
           Qt::ListWidgetItem.new(song.to_s, @ui.song_list)
             .setData(Qt::UserRole, Qt::Variant
-            .new(@player.playlist.index(song)))
+            .new(@player.playlist.songs.index(song)))
         end
       end
 
@@ -109,9 +109,10 @@ module MehPlayer
         selected_song = @ui.song_list.takeItem(@ui.song_list.currentRow)
                         .data(Qt::UserRole)
                         .to_i
-        @player.playlist.delete_at(selected_song)
-        self.songs = @player.playlist
-        if @player.playlist.empty?
+        return if selected_song.nil?
+        @player.playlist.songs.delete_at(selected_song)
+        self.songs = @player.playlist.songs
+        if @player.playlist.songs.empty?
           parent.stop
         else
           if @player.current_song == selected_song
@@ -123,7 +124,7 @@ module MehPlayer
       def delete_all
         parent.stop
         @ui.song_list.clear
-        @player.playlist = []
+        @player.playlist.clear
       end
 
       def choose_song
@@ -134,31 +135,28 @@ module MehPlayer
       def search
         keywords = @ui.search.text.split
         self.songs = (
-          (@player.find_by_description(keywords) |
-          @player.find_by_info(keywords)) ||
-          @player.playlist
+          (@player.playlist.find_by_description(keywords) |
+          @player.playlist.find_by_info(keywords)) ||
+          @player.playlist.songs
         )
       end
 
       def enqueue_file
         file_name = Qt::FileDialog.getOpenFileName(self)
         return unless !file_name.nil? && Song.audio_file?(file_name)
-        playlist = Playlist.new([Song.new(file_name)])
-        @player.playlist += playlist.songs
-        self.songs = @player.playlist
+        @player.playlist.add_song(file_name)
+        self.songs = @player.playlist.songs
       end
 
       def enqueue_folder
         folder_name = Qt::FileDialog.getExistingDirectory(self)
         return if folder_name.nil?
-        playlist = Playlist.new
-        playlist.scan_folder(folder_name)
-        @player.playlist += playlist.songs
-        self.songs = @player.playlist
+        @player.playlist.scan_folder(folder_name)
+        self.songs = @player.playlist.songs
       end
 
       def sort_by_title
-        self.songs = @player.playlist.sort! do |x, y|
+        self.songs = @player.playlist.songs.sort! do |x, y|
           if (x.title == y.title)
             (x.artist <=> y.artist)
           else
@@ -168,7 +166,7 @@ module MehPlayer
       end
 
       def sort_by_author
-        self.songs = @player.playlist.sort! do |x, y|
+        self.songs = @player.playlist.songs.sort! do |x, y|
           if (x.artist == y.artist)
             (x.title <=> y.title)
           else
@@ -178,7 +176,7 @@ module MehPlayer
       end
 
       def sort_by_rating
-        self.songs = @player.playlist.sort! do |x, y|
+        self.songs = @player.playlist.songs.sort! do |x, y|
           y.rate <=> x.rate
         end
       end
